@@ -26,5 +26,11 @@ namespace Aplikacja
         {
             Application.Exit();
         }
+
+        private void oProgramieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 aboutbox = new AboutBox1();
+            aboutbox.Show();
+        }
     }
 }
