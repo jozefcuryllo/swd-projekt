@@ -16,5 +16,15 @@ namespace Aplikacja
         {
             InitializeComponent();
         }
+
+        private void plikToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void zakończToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
