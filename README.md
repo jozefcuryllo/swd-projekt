@@ -10,6 +10,7 @@ Aby uruchomić niniejszy projekt najłatwiej pobrać program do obsługi GitHuba
 
 # Ciekawe odnośniki
 - Test D-15 on-line http://www.color-blindness.com/color-arrangement-test/
+- Generator tablic Ishihary https://franciscouzo.github.io/ishihara/
 
 # Literatura
 [1] Implikacja w logice rozmytej 
