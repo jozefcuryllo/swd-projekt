@@ -63,12 +63,13 @@ namespace Aplikacja
 
             if (m_dbConnection != null)
             {
-                String sql = "CREATE TABLE wyniki (id INT PRIMARY KEY, idTestu INT, wynik INT, data TEXT) "; 
+                String sql = "CREATE TABLE "+Wynik.NAME_TABLE+" ("+Wynik.NAME_ID+" INT PRIMARY KEY, "+Wynik.NAME_IDTESTU+" INT, "+Wynik.NAME_WYNIK+" REAL, "+Wynik.NAME_DATA+" TEXT) "; 
                 result = nonQuery(sql);
             }
 
             return result;
         }
+
 
         
 
