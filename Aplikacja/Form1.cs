@@ -42,16 +42,17 @@ namespace Aplikacja
             aboutbox.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TestIshihary test = new TestIshihary();
-            test.Show();
-        }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
             button1.Left = (this.ClientSize.Width - button1.Width) / 2;
             button1.Top = (this.ClientSize.Height - button1.Height) / 2;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TestIshihary test = new TestIshihary();
+            test.Show();
         }
     }
 }
