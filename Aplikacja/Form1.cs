@@ -24,9 +24,6 @@ namespace Aplikacja
             // Utworzenie bazy danych
                 MyDataBase db = new MyDataBase();
                 db.create();
-                db.open();
-                db.createSchema();
-                db.close();
         }
 
         private void plikToolStripMenuItem_Click(object sender, EventArgs e)
@@ -47,7 +44,8 @@ namespace Aplikacja
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            TestIshihary test = new TestIshihary();
+            test.Show();
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)

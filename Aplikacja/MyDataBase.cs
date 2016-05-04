@@ -17,6 +17,10 @@ namespace Aplikacja
             if (!File.Exists(Directory.GetCurrentDirectory() + @"\" + MyDataBase.databaseName))
             {
                 SQLiteConnection.CreateFile(databaseName);
+                open();
+                String sql = "CREATE TABLE " + Wynik.NAME_TABLE + " (" + Wynik.NAME_ID + " INT PRIMARY KEY, " + Wynik.NAME_IDTESTU + " INT, " + Wynik.NAME_WYNIK + " REAL, " + Wynik.NAME_DATA + " TEXT) ";
+                nonQuery(sql);
+                close();
             }
         }
 
@@ -58,17 +62,7 @@ namespace Aplikacja
             return reader;
         }
 
-        public int createSchema() {
-            int result = -1;
-
-            if (m_dbConnection != null)
-            {
-                String sql = "CREATE TABLE "+Wynik.NAME_TABLE+" ("+Wynik.NAME_ID+" INT PRIMARY KEY, "+Wynik.NAME_IDTESTU+" INT, "+Wynik.NAME_WYNIK+" REAL, "+Wynik.NAME_DATA+" TEXT) "; 
-                result = nonQuery(sql);
-            }
-
-            return result;
-        }
+   
 
 
         
