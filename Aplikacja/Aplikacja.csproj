@@ -75,6 +75,8 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database\Images.cs" />
+    <Compile Include="Helpers\Shuffle.cs" />
     <Compile Include="TestIshihary.cs">
       <SubType>Form</SubType>
     </Compile>

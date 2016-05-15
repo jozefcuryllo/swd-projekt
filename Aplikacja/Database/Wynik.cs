@@ -12,12 +12,16 @@ namespace Aplikacja
         public static readonly String NAME_ID = "id";
         public static readonly String NAME_IDTESTU = "idTestu";
         public static readonly String NAME_WYNIK = "wynik";
+        public static readonly String NAME_TYPE = "type";
         public static readonly String NAME_DATA = "data";
 
         private int id;
         private int idTestu;
         private float wynikTestu;
+        private String type;
         private String data;
+
+
 
         public int Id
         {
@@ -68,6 +72,19 @@ namespace Aplikacja
             set
             {
                 data = value;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
             }
         }
     }

@@ -40,7 +40,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Location = new System.Drawing.Point(33, -25);
+            this.pictureBox1.Location = new System.Drawing.Point(32, -2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(459, 278);
             this.pictureBox1.TabIndex = 0;
@@ -73,6 +73,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Dalej";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel1
             // 
@@ -80,7 +81,7 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 255);
+            this.panel1.Location = new System.Drawing.Point(0, 282);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(535, 57);
             this.panel1.TabIndex = 4;
@@ -89,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 312);
+            this.ClientSize = new System.Drawing.Size(535, 339);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.MinimumSize = new System.Drawing.Size(551, 351);
