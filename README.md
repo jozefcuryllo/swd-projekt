@@ -13,8 +13,8 @@ Aby uruchomić niniejszy projekt najłatwiej pobrać program do obsługi GitHuba
 - Generator tablic Ishihary https://franciscouzo.github.io/ishihara/
 
 # Literatura
-[1] Implikacja w logice rozmytej 
-ftp://www.cc.uah.es/pub/Alumnos/G_Ing_Informatica/Comp_Flexible/Fuzzy_Implications/cap1.pdf
+[1] Logika rozmyta 
+http://www.cs.berkeley.edu/~zadeh/papers/Fuzzy%20Sets-Information%20and%20Control-1965.pdf
 
 [2] Metody detekcji zaburzeń widzenia barw w zawodach związanych z logistyką
 https://www.researchgate.net/publication/270050740_Metody_detekcji_zaburzen_widzenia_barw_w_zawodach_zwiazanych_z_logistyka
