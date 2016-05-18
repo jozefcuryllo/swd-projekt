@@ -24,3 +24,6 @@ https://en.wikipedia.org/wiki/Farnsworth-Munsell_100_hue_test
 
 [4] Analiza testu F-M 100
 http://jcp.bmj.com/content/44/9/745.full.pdf
+
+[5] Tablice Ishihary z wyjaśnieniem
+http://unlimitedmemory.tripod.com/sitebuildercontent/sitebuilderfiles/ishihara38.pdf
