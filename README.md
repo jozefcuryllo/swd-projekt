@@ -13,8 +13,8 @@ Aby uruchomić niniejszy projekt najłatwiej pobrać program do obsługi GitHuba
 - Generator tablic Ishihary https://franciscouzo.github.io/ishihara/
 
 # Literatura
-[1] Implikacja w logice rozmytej 
-ftp://www.cc.uah.es/pub/Alumnos/G_Ing_Informatica/Comp_Flexible/Fuzzy_Implications/cap1.pdf
+[1] Logika rozmyta 
+http://www.cs.berkeley.edu/~zadeh/papers/Fuzzy%20Sets-Information%20and%20Control-1965.pdf
 
 [2] Metody detekcji zaburzeń widzenia barw w zawodach związanych z logistyką
 https://www.researchgate.net/publication/270050740_Metody_detekcji_zaburzen_widzenia_barw_w_zawodach_zwiazanych_z_logistyka
@@ -24,3 +24,9 @@ https://en.wikipedia.org/wiki/Farnsworth-Munsell_100_hue_test
 
 [4] Analiza testu F-M 100
 http://jcp.bmj.com/content/44/9/745.full.pdf
+
+[5] Tablice Ishihary z wyjaśnieniem
+http://unlimitedmemory.tripod.com/sitebuildercontent/sitebuilderfiles/ishihara38.pdf
+
+[6] 38 tablic Ishihary w formacie jpg
+http://www.color-blindness.com/2012/10/22/ishiharas-test-for-colour-deficiency38-plates-edition/#prettyPhoto
