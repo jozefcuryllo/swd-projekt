@@ -20,6 +20,9 @@ namespace Aplikacja
         // Poprawna wartość liczby/tekstu pokazanego na teście Ishihary
         public static readonly String IMAGE_VALUE = "value";
 
+        // Drastycznie zła odpowiedź która determinuje wadę wzroku
+        public static readonly String IMAGE_WRONG_VALUE = "wrongvalue";
+
         // Badana cecha wzroku (np. "czerwony" jako zdolność do rozpoznawania barwy czerwonej)
         public static readonly String IMAGE_TYPE = "type";
 
@@ -29,7 +32,11 @@ namespace Aplikacja
 
         private String value;
 
+        private String wrongValue;
+
         private String type;
+
+        
 
         public string Type
         {
@@ -83,13 +90,27 @@ namespace Aplikacja
             }
         }
 
+        public string WrongValue
+        {
+            get
+            {
+                return wrongValue;
+            }
+
+            set
+            {
+                wrongValue = value;
+            }
+        }
+
         public Images() {
         }
 
-        public Images(int id, String name, String value, String type) {
+        public Images(int id, String name, String value, String wrongValue, String type) {
             this.Id = id;
             this.Name = name;
             this.Value = value;
+            this.WrongValue = wrongValue;
             this.Type = type;
         }
     

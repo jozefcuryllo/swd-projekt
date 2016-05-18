@@ -37,6 +37,7 @@ namespace Aplikacja
                 image.Name = (String)sqlReader[Images.IMAGE_NAME].ToString();
                 image.Type = (String)sqlReader[Images.IMAGE_TYPE].ToString();
                 image.Value = (String)sqlReader[Images.IMAGE_VALUE].ToString();
+                image.WrongValue = (String)sqlReader[Images.IMAGE_WRONG_VALUE].ToString();
 
                 images.Add(image);
             }
