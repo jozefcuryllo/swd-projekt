@@ -27,3 +27,6 @@ http://jcp.bmj.com/content/44/9/745.full.pdf
 
 [5] Tablice Ishihary z wyjaśnieniem
 http://unlimitedmemory.tripod.com/sitebuildercontent/sitebuilderfiles/ishihara38.pdf
+
+[6] 38 tablic Ishihary w formacie jpg
+http://www.color-blindness.com/2012/10/22/ishiharas-test-for-colour-deficiency38-plates-edition/#prettyPhoto
