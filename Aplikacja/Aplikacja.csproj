@@ -69,35 +69,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox1.cs">
+    <Compile Include="Forms\AboutBox1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox1.Designer.cs">
+    <Compile Include="Forms\AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\Images.cs" />
     <Compile Include="Helpers\FuzzyLogic.cs" />
     <Compile Include="Helpers\Shuffle.cs" />
-    <Compile Include="TestIshihary.cs">
+    <Compile Include="Forms\Results.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestIshihary.Designer.cs">
+    <Compile Include="Forms\Results.Designer.cs">
+      <DependentUpon>Results.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TestIshihary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestIshihary.Designer.cs">
       <DependentUpon>TestIshihary.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\Wynik.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\MyDataBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AboutBox1.resx">
+    <EmbeddedResource Include="Forms\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -109,7 +115,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TestIshihary.resx">
+    <EmbeddedResource Include="Forms\Results.resx">
+      <DependentUpon>Results.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestIshihary.resx">
       <DependentUpon>TestIshihary.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

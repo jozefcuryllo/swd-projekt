@@ -24,11 +24,15 @@ namespace Aplikacja
             images = new List<Images>();
             indexOfImage = 0;
 
+
+
             String sql = "SELECT * FROM \"" + Images.IMAGE_TABLE_NAME + "\" LIMIT 40";
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
             MyDataBase myDataBase = new MyDataBase();
             myDataBase.open();
+            myDataBase.clearWyniki();
+
             System.Data.SQLite.SQLiteDataReader sqlReader = myDataBase.query(sql);
             while (sqlReader.Read())
             {
@@ -63,20 +67,39 @@ namespace Aplikacja
 
         private void button1_Click(object sender, EventArgs e)
         {
+            zapisz_wynik(textBox1.Text);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            zapisz_wynik(null);
+        }
+
+        private void zapisz_wynik(String wartosc) {
             Wynik wynik = new Wynik();
-           // wynik.Id = 0; // jest AUTOINCREMENT
-            wynik.IdTestu = 0; // obecnie nieużywane
+            // wynik.Id = 0; // jest AUTOINCREMENT
+            wynik.IdTestu = image.Id;
             wynik.Type = image.Type;
-            wynik.WynikTestu = image.Value == textBox1.Text ? 1 : 0; // jeśli wartość wzorcowa jest równa podanej przez pacjenta to wynik = 1, inaczej = 0; 
-            wynik.Data = DateTime.Today.ToShortDateString() +" "+ DateTime.Now.ToLongTimeString();
+            wynik.WynikTestu = image.Value == wartosc ? 1 : 0; // jeśli wartość wzorcowa jest równa podanej przez pacjenta to wynik = 1, inaczej = 0; 
+            wynik.Data = DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
 
             MyDataBase myDataBase = new MyDataBase();
             myDataBase.open();
             myDataBase.addWynik(wynik);
             myDataBase.close();
 
-            if (indexOfImage < images.Count) {
+            textBox1.Text = null;
+
+            if (indexOfImage < images.Count)
+            {
                 setImage(images.ElementAt(indexOfImage));
+            }
+            else
+            {
+                Results results = new Results();
+                results.Show();
+
+                this.Close();
             }
         }
     }

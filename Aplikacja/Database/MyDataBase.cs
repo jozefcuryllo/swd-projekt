@@ -10,7 +10,7 @@ namespace Aplikacja
 {
     class MyDataBase
     {
-        public static readonly String databaseName = "db2.sqlite";
+        public static readonly String databaseName = "db.sqlite";
         SQLiteConnection m_dbConnection = null;
 
         public void create() {
@@ -97,23 +97,11 @@ namespace Aplikacja
             ishihara.Add(new Images(19, "Ishihara-Plate-19-38.jpg", null, "2", "rg"));
             ishihara.Add(new Images(20, "Ishihara-Plate-20-38.jpg", null, "45", "rg"));
             ishihara.Add(new Images(21, "Ishihara-Plate-21-38.jpg", null, "73", "rg"));
-            ishihara.Add(new Images(22, "Ishihara-Plate-22-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(23, "Ishihara-Plate-23-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(24, "Ishihara-Plate-24-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(25, "Ishihara-Plate-25-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(26, "Ishihara-Plate-26-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(27, "Ishihara-Plate-27-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(28, "Ishihara-Plate-28-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(29, "Ishihara-Plate-29-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(30, "Ishihara-Plate-30-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(31, "Ishihara-Plate-31-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(32, "Ishihara-Plate-32-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(33, "Ishihara-Plate-33-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(34, "Ishihara-Plate-34-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(35, "Ishihara-Plate-35-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(36, "Ishihara-Plate-36-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(37, "Ishihara-Plate-37-38.jpg", null, "2", "rg"));
-            ishihara.Add(new Images(38, "Ishihara-Plate-38-38.jpg", null, "2", "rg"));
+            ishihara.Add(new Images(22, "Ishihara-Plate-22-38.jpg", "26", "2", "rg"));
+            ishihara.Add(new Images(23, "Ishihara-Plate-23-38.jpg", "42", "2", "rg"));
+            ishihara.Add(new Images(24, "Ishihara-Plate-24-38.jpg", "35", "2", "rg"));
+            ishihara.Add(new Images(25, "Ishihara-Plate-25-38.jpg", "96", "2", "rg"));
+
 
 
             foreach (Images i in ishihara) {
@@ -158,6 +146,16 @@ namespace Aplikacja
             }
             return -1;
         }
+
+        public int clearWyniki()
+        {
+            String sql = "DELETE FROM " + Wynik.NAME_TABLE + ";";
+
+            return nonQuery(sql);
+        }
+
+
+    
 
     }
 }
