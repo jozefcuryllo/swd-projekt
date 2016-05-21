@@ -33,8 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +90,15 @@
             this.panel1.Size = new System.Drawing.Size(725, 57);
             this.panel1.TabIndex = 4;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(433, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "lub naciśnij:";
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(501, 22);
@@ -100,15 +109,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(433, 27);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "lub naciśnij:";
-            // 
             // TestIshihary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,7 +118,6 @@
             this.Controls.Add(this.pictureBox1);
             this.MinimumSize = new System.Drawing.Size(551, 351);
             this.Name = "TestIshihary";
-            this.ShowInTaskbar = false;
             this.Text = "Test Ishihary";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);

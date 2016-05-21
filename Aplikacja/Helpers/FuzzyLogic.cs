@@ -10,7 +10,7 @@ namespace Aplikacja.Helpers
 
     public static class FuzzyLogic
     {
-        private static float maximum(float a, float b)
+        private static Double maximum(Double a, Double b)
         {
             if (a > b)
             {
@@ -19,7 +19,7 @@ namespace Aplikacja.Helpers
             else return b;
         }
 
-        private static float minimum(float a, float b) {
+        private static Double minimum(Double a, Double b) {
             if (a < b)
             {
                 return a;
@@ -27,7 +27,7 @@ namespace Aplikacja.Helpers
             else return b;
         }
 
-        public static float AND(float a, float b) {
+        public static Double AND(Double a, Double b) {
 
             // Zadeh
             // return minimum(a, b);
@@ -36,7 +36,7 @@ namespace Aplikacja.Helpers
             return a * b;
         }
 
-        public static float OR(float a, float b) {
+        public static Double OR(Double a, Double b) {
 
             // Zadeh
             // return maximum(a, b);
@@ -45,53 +45,53 @@ namespace Aplikacja.Helpers
             return a + b - (a * b);
         }
 
-        public static float NOT(float a) {
-            return 1.0f - a;
+        public static Double NOT(Double a) {
+            return 1.0d - a;
         }
 
-        public static float XOR(float a, float b) {
+        public static Double XOR(Double a, Double b) {
             // Zadeh
-            // return a + b - 2.0f * (minimum(a, b));
+            // return a + b - 2.0.0d * (minimum(a, b));
 
             // Hyperbolic Paraboloid
-            return a + b - (2.0f * a * b); 
+            return a + b - (2.0d * a * b); 
         }
 
-        public static float IMPLIES(float a, float b) {
+        public static Double IMPLIES(Double a, Double b) {
 
             // Zadeh
-            // return 1.0f - minimum(a, 1.0f - b);
+            // return 1.0.0d - minimum(a, 1.0.0d - b);
 
             // Hyperbolic Paraboloid
-            return 1.0f - a + (a * b);
+            return 1.0d - a + (a * b);
         }
 
-        public static float NAND(float a, float b) {
+        public static Double NAND(Double a, Double b) {
 
             // Zadeh
-            // return 1.0f - minimum(a, b);
+            // return 1.0.0d - minimum(a, b);
 
             // Hyperbolic Paraboloid
-            return 1.0f - (a * b);
+            return 1.0d - (a * b);
         }
 
-        public static float NOR(float a, float b)
+        public static Double NOR(Double a, Double b)
         {
 
             // Zadeh
-            // return 1.0f - maximum(a, b);
+            // return 1.0.0d - maximum(a, b);
 
             // Hyperbolic Paraboloid
             return 1 - a - b + (a * b);
         }
 
-        public static float NOT_IMPLIES(float a, float b) {
+        public static Double NOT_IMPLIES(Double a, Double b) {
 
             // Zadeh
-            // return minimum(a, 1.0f - b);
+            // return minimum(a, 1.0.0d - b);
 
             // Hyperbolic Paraboloid
-            return a * (1.0f - b);
+            return a * (1.0d - b);
         }
     }
 }

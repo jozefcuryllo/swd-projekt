@@ -37,7 +37,7 @@ namespace Aplikacja
             while (sqlReader.Read())
             {
                 Images image = new Images();
-                image.Id = int.Parse(sqlReader[Images.IMAGE_ID].ToString());
+                image.Id = Convert.ToInt32(sqlReader[Images.IMAGE_ID]);
                 image.Name = (String)sqlReader[Images.IMAGE_NAME].ToString();
                 image.Type = (String)sqlReader[Images.IMAGE_TYPE].ToString();
                 image.Value = (String)sqlReader[Images.IMAGE_VALUE].ToString();
@@ -59,9 +59,9 @@ namespace Aplikacja
                 this.image = image;
                 this.indexOfImage++;
             }
-            catch (Exception)
+            catch
             {
-                MessageBox.Show("Nie znaleziono obrazu!");
+                MessageBox.Show("Nie znaleziono obrazu!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -80,7 +80,30 @@ namespace Aplikacja
             // wynik.Id = 0; // jest AUTOINCREMENT
             wynik.IdTestu = image.Id;
             wynik.Type = image.Type;
-            wynik.WynikTestu = image.Value == wartosc ? 1 : 0; // jeśli wartość wzorcowa jest równa podanej przez pacjenta to wynik = 1, inaczej = 0; 
+            try
+            {
+               
+                if (image.Id < 22)
+                {
+                    wynik.WynikTestu = image.Value == wartosc ? 1 : 0; // jeśli wartość wzorcowa jest równa podanej przez pacjenta to wynik = 1, inaczej = 0; 
+                }
+                else {
+                    if (wartosc == null) {
+                        wynik.WynikTestu = 0.0d;
+                    }
+                    else
+                    {
+                        wynik.WynikTestu = Convert.ToDouble(wartosc);
+                    }
+                    
+                }
+             
+            }
+            catch
+            {
+                MessageBox.Show("Proszę wprowadzić liczbę!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             wynik.Data = DateTime.Today.ToShortDateString() + " " + DateTime.Now.ToLongTimeString();
 
             MyDataBase myDataBase = new MyDataBase();
@@ -88,19 +111,28 @@ namespace Aplikacja
             myDataBase.addWynik(wynik);
             myDataBase.close();
 
-            textBox1.Text = null;
-
-            if (indexOfImage < images.Count)
+            if (indexOfImage < images.Count - 1)
             {
-                setImage(images.ElementAt(indexOfImage));
+                setImage(images.ElementAtOrDefault(indexOfImage));
             }
             else
             {
+                this.Close();
+
+                MessageBox.Show("Generowanie pliku CSV, proszę czekać!", "Generowanie pliku!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Results results = new Results();
                 results.Show();
 
-                this.Close();
+                
             }
+
+            if (this.Contains(textBox1))
+            {
+                textBox1.Text = null;
+                ActiveControl = textBox1;
+            }
+
+
         }
     }
 }

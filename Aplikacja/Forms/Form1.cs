@@ -53,6 +53,7 @@ namespace Aplikacja
         {
             TestIshihary test = new TestIshihary();
             test.Show();
+
         }
     }
 }

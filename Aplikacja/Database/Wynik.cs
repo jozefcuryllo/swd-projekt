@@ -9,7 +9,7 @@ namespace Aplikacja
     class Wynik
     {
         public static readonly String NAME_TABLE = "wyniki";
-        public static readonly String NAME_ID = "id";
+        public static readonly String NAME_ID = "_id";
         public static readonly String NAME_IDTESTU = "idTestu";
         public static readonly String NAME_WYNIK = "wynik";
         public static readonly String NAME_TYPE = "type";
@@ -17,7 +17,7 @@ namespace Aplikacja
 
         private int id;
         private int idTestu;
-        private float wynikTestu;
+        private Double wynikTestu;
         private String type;
         private String data;
 
@@ -49,7 +49,7 @@ namespace Aplikacja
             }
         }
 
-        public float WynikTestu
+        public Double WynikTestu
         {
             get
             {
