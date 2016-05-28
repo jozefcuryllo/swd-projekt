@@ -275,7 +275,7 @@ namespace Aplikacja
                     str.Append(k.Fu.ToString("0.00").Replace(",", "."));
                     str.Append(',');
                     str.Append(k.Ffu.ToString("0.00").Replace(",", "."));
-                    file.WriteLine(str);
+                    file.WriteLine(str.ToString());
                 }
 
 

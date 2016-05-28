@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aplikacja.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -51,7 +52,8 @@ namespace Aplikacja
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TestIshihary test = new TestIshihary();
+            //TestIshihary test = new TestIshihary();
+            TestFM test = new TestFM();
             test.Show();
 
         }

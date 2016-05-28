@@ -69,6 +69,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ColorPalette.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\ColorPalette.Designer.cs">
+      <DependentUpon>ColorPalette.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\FMblok.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\FMblok.Designer.cs">
+      <DependentUpon>FMblok.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Components\FMdrag.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\FMdrag.Designer.cs">
+      <DependentUpon>FMdrag.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database\Krotka.cs" />
     <Compile Include="Forms\AboutBox1.cs">
       <SubType>Form</SubType>
@@ -77,6 +95,12 @@
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\Images.cs" />
+    <Compile Include="Forms\TestFM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestFM.Designer.cs">
+      <DependentUpon>TestFM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\FuzzyLogic.cs" />
     <Compile Include="Helpers\Shuffle.cs" />
     <Compile Include="Forms\Results.cs">
@@ -107,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestFM.resx">
+      <DependentUpon>TestFM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
