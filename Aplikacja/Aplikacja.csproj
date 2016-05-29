@@ -123,6 +123,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\MyDataBase.cs" />
+    <Compile Include="Helpers\Similarity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AboutBox1.resx">

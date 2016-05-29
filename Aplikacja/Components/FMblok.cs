@@ -12,8 +12,17 @@ using System.Windows.Forms;
 namespace Aplikacja {
     public partial class FMblok : Control {
 
-        public Color ulozonyKolor = Color.Black;
+        private Color ulozonyKolor = Color.Black;
 
+        public Color UlozonyKolor {
+            get {
+                return ulozonyKolor;
+            }
+
+            set {
+                ulozonyKolor = value;
+            }
+        }
 
         public FMblok() {
             InitializeComponent();
@@ -21,11 +30,11 @@ namespace Aplikacja {
         }
 
         protected override void OnPaint(PaintEventArgs pe) {
-            if (ulozonyKolor == Color.Black) {
+            if (UlozonyKolor == Color.Black) {
                 pe.Graphics.FillRectangle(new HatchBrush(HatchStyle.BackwardDiagonal, Color.Silver, Color.Snow), ClientRectangle);
             }
             else {
-                pe.Graphics.FillRectangle(new SolidBrush(ulozonyKolor), ClientRectangle);
+                pe.Graphics.FillRectangle(new SolidBrush(UlozonyKolor), ClientRectangle);
             }
         }
 
@@ -45,7 +54,7 @@ namespace Aplikacja {
             if (colorName == null)
                 return;
 
-            ulozonyKolor = Color.FromArgb(Convert.ToInt32(colorName));
+            UlozonyKolor = Color.FromArgb(Convert.ToInt32(colorName));
 
             Invalidate();
         }

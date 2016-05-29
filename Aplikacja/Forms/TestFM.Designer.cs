@@ -23,6 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.colorPalette1 = new Aplikacja.Components.ColorPalette();
             this.fMblok16 = new Aplikacja.FMblok();
             this.fMblok15 = new Aplikacja.FMblok();
             this.fMblok14 = new Aplikacja.FMblok();
@@ -39,8 +44,53 @@
             this.fMblok3 = new Aplikacja.FMblok();
             this.fMblok2 = new Aplikacja.FMblok();
             this.fMblok1 = new Aplikacja.FMblok();
-            this.colorPalette1 = new Aplikacja.Components.ColorPalette();
             this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(53, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Kolory do wyboru:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(53, 144);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(188, 13);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Uporządkuj kolory według ich odcieni:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(598, 266);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 35;
+            this.button1.Text = "Zatwierdź";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(53, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(387, 13);
+            this.label3.TabIndex = 36;
+            this.label3.Text = "Przeciągnij kolory z górnego panelu i upuść je w dolnym na odpowiedniej pozycji.";
+            // 
+            // colorPalette1
+            // 
+            this.colorPalette1.Location = new System.Drawing.Point(56, 47);
+            this.colorPalette1.Name = "colorPalette1";
+            this.colorPalette1.Size = new System.Drawing.Size(618, 73);
+            this.colorPalette1.TabIndex = 32;
+            this.colorPalette1.Text = "colorPalette1";
             // 
             // fMblok16
             // 
@@ -186,19 +236,15 @@
             this.fMblok1.TabIndex = 0;
             this.fMblok1.Text = "fMblok1";
             // 
-            // colorPalette1
-            // 
-            this.colorPalette1.Location = new System.Drawing.Point(56, 47);
-            this.colorPalette1.Name = "colorPalette1";
-            this.colorPalette1.Size = new System.Drawing.Size(618, 73);
-            this.colorPalette1.TabIndex = 32;
-            this.colorPalette1.Text = "colorPalette1";
-            // 
             // TestFM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(806, 261);
+            this.ClientSize = new System.Drawing.Size(806, 301);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.colorPalette1);
             this.Controls.Add(this.fMblok16);
             this.Controls.Add(this.fMblok15);
@@ -219,6 +265,7 @@
             this.Name = "TestFM";
             this.Text = "TestFM";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -241,5 +288,9 @@
         private FMblok fMblok15;
         private FMblok fMblok16;
         private Components.ColorPalette colorPalette1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label3;
     }
 }
