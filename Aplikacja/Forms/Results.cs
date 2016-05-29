@@ -32,6 +32,7 @@ namespace Aplikacja
 
             // tablica 1 (monochromatyzm)
             krotka.Alfa1 = 0.0d;
+           
 
             // tablice 2-21 (problem z czerwonym lub zielonym)
             krotka.Alfa2 = 0.0d;
@@ -144,6 +145,8 @@ namespace Aplikacja
             generujCSV(null, true);
 
             Double delta = 0.5f;
+
+  
 
             // To trzeba zrobić jakoś inaczej, np. rekurencyjnie
             for (krotka.Alfa1 = 0f; krotka.Alfa1 <= 1f; krotka.Alfa1 += delta) {

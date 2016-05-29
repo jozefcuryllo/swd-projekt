@@ -53,6 +53,7 @@ namespace Aplikacja
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             //TestIshihary test = new TestIshihary();
             TestFM test = new TestFM();
             test.Show();
