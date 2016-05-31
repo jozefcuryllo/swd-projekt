@@ -20,12 +20,24 @@ namespace Aplikacja.Database
         private Double alfa9;
         private Double alfa10;
         private Double alfa11;
+        private Double alfa12;
+        private Double alfa13;
+        private Double alfa14;
+        private Double alfa15;
+        private Double alfa16;
 
         private Double f1;
         private Double f2;
         private Double f3;
         private Double f4;
         private Double f5;
+        private Double f6;
+        private Double f7;
+        private Double f8;
+        private Double f9;
+        private Double f10;
+        private Double f11;
+        private Double f12;
         private Double f;
         private Double fu;
         private Double ffu;
@@ -161,11 +173,11 @@ namespace Aplikacja.Database
 
         public double Alfa11 {
             get {
-                return alfa11;
+                return Alfa111;
             }
 
             set {
-                alfa11 = value;
+                Alfa111 = value;
             }
         }
 
@@ -211,11 +223,11 @@ namespace Aplikacja.Database
 
         public double F5 {
             get {
-                return f5;
+                return F51;
             }
 
             set {
-                f5 = value;
+                F51 = value;
             }
         }
 
@@ -246,6 +258,156 @@ namespace Aplikacja.Database
 
             set {
                 ffu = value;
+            }
+        }
+
+        public double Alfa12 {
+            get {
+                return Alfa121;
+            }
+
+            set {
+                Alfa121 = value;
+            }
+        }
+
+        public double Alfa111 {
+            get {
+                return alfa11;
+            }
+
+            set {
+                alfa11 = value;
+            }
+        }
+
+        public double Alfa121 {
+            get {
+                return alfa12;
+            }
+
+            set {
+                alfa12 = value;
+            }
+        }
+
+        public double Alfa13 {
+            get {
+                return alfa13;
+            }
+
+            set {
+                alfa13 = value;
+            }
+        }
+
+        public double Alfa14 {
+            get {
+                return alfa14;
+            }
+
+            set {
+                alfa14 = value;
+            }
+        }
+
+        public double Alfa15 {
+            get {
+                return alfa15;
+            }
+
+            set {
+                alfa15 = value;
+            }
+        }
+
+        public double F51 {
+            get {
+                return f5;
+            }
+
+            set {
+                f5 = value;
+            }
+        }
+
+        public double F6 {
+            get {
+                return f6;
+            }
+
+            set {
+                f6 = value;
+            }
+        }
+
+        public double F7 {
+            get {
+                return f7;
+            }
+
+            set {
+                f7 = value;
+            }
+        }
+
+        public double F8 {
+            get {
+                return f8;
+            }
+
+            set {
+                f8 = value;
+            }
+        }
+
+        public double F9 {
+            get {
+                return f9;
+            }
+
+            set {
+                f9 = value;
+            }
+        }
+
+        public double F10 {
+            get {
+                return f10;
+            }
+
+            set {
+                f10 = value;
+            }
+        }
+
+        public double F11 {
+            get {
+                return f11;
+            }
+
+            set {
+                f11 = value;
+            }
+        }
+
+        public double F12 {
+            get {
+                return f12;
+            }
+
+            set {
+                f12 = value;
+            }
+        }
+
+        public double Alfa16 {
+            get {
+                return alfa16;
+            }
+
+            set {
+                alfa16 = value;
             }
         }
     }

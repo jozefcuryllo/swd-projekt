@@ -1,4 +1,5 @@
-﻿using Aplikacja.Helpers;
+﻿using Aplikacja.Forms;
+using Aplikacja.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -119,9 +120,8 @@ namespace Aplikacja
             {
                 this.Close();
 
-                MessageBox.Show("Generowanie pliku CSV, proszę czekać!", "Generowanie pliku!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Results results = new Results();
-                results.Show();
+                TestFM testFM = new TestFM();
+                testFM.Show();
 
                 
             }

@@ -53,10 +53,14 @@ namespace Aplikacja
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //TestIshihary test = new TestIshihary();
-            TestFM test = new TestFM();
+            TestIshihary test = new TestIshihary();
             test.Show();
 
+        }
+
+        private void ustawieniaToolStripMenuItem1_Click(object sender, EventArgs e) {
+            Settings settings = new Settings();
+            settings.Show();
         }
     }
 }

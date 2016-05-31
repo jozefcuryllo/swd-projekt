@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aplikacja.Database;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -18,6 +19,8 @@ namespace Aplikacja
             {
                 SQLiteConnection.CreateFile(databaseName);
                 open();
+                addUstawieniaTable();
+                addUstawieniaRecords();
                 addWynikiTable();
                 addImagesTable();
                 addImagesRecords();
@@ -73,6 +76,25 @@ namespace Aplikacja
             return nonQuery(sql);
         }
 
+        public int zmienUstawieniaTable(String klucz, String wartosc) {
+            String sql = "UPDATE " + Ustawienia.USTAWIENIA_TABLE_NAME + " SET  " +  Ustawienia.USTAWIENIA_COLUMN_WARTOSC + "=@param1 WHERE " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + "=@param2" ;
+
+            if (m_dbConnection != null) {
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                command.CommandText = sql;
+                command.CommandType = System.Data.CommandType.Text;
+                command.Parameters.Add(new SQLiteParameter("@param1", wartosc));
+                command.Parameters.Add(new SQLiteParameter("@param2", klucz));
+                return command.ExecuteNonQuery();
+            }
+            return -1;
+        }
+
+        public int addUstawieniaTable() {
+            String sql = "CREATE TABLE " + Ustawienia.USTAWIENIA_TABLE_NAME + " ( " + Ustawienia.USTAWIENIA_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + " TEXT NOT NULL, " + Ustawienia.USTAWIENIA_COLUMN_WARTOSC + " TEXT NOT NULL " + " ) ";
+            return nonQuery(sql);
+        }
+
         public int addImagesRecords() {
             List<Images> ishihara = new List<Images>();
 
@@ -111,6 +133,32 @@ namespace Aplikacja
             return 0;
         }
 
+        public int addUstawienie(Ustawienia ustawienie) {
+            String sql = "INSERT INTO " + Ustawienia.USTAWIENIA_TABLE_NAME + " ( " + Ustawienia.USTAWIENIA_COLUMN_ID + ", " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + ", " + Ustawienia.USTAWIENIA_COLUMN_WARTOSC + " ) VALUES (@param1, @param2, @param3)";
+
+            if (m_dbConnection != null) {
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                command.CommandText = sql;
+                command.CommandType = System.Data.CommandType.Text;
+                command.Parameters.Add(new SQLiteParameter("@param1", ustawienie.Id));
+                command.Parameters.Add(new SQLiteParameter("@param2", ustawienie.Klucz));
+                command.Parameters.Add(new SQLiteParameter("@param3", ustawienie.Wartosc));
+                return command.ExecuteNonQuery();
+            }
+            return -1;
+        }
+
+        public int addUstawieniaRecords() {
+
+            List<Ustawienia> ustawienia = new List<Ustawienia>();
+            ustawienia.Add(new Ustawienia(1, "prog_wynikow", "0.01"));
+            
+            foreach (Ustawienia i in ustawienia) {
+                addUstawienie(i);
+            }
+
+            return 0;
+        }
 
         public int addImage(Images image) {
             String sql = "INSERT INTO " + Images.IMAGE_TABLE_NAME + " ( " + Images.IMAGE_NAME + ", " + Images.IMAGE_TYPE + ", " + Images.IMAGE_VALUE + ", " + Images.IMAGE_WRONG_VALUE + " ) VALUES (@param1, @param2, @param3, @param4)";
