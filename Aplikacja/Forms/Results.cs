@@ -44,6 +44,7 @@ namespace Aplikacja
 
             // tablica 1 (monochromatyzm)
             krotka.Alfa1 = 0.0d;
+           
 
             // tablice 2-21 (problem z czerwonym lub zielonym)
             krotka.Alfa2 = 0.0d;
@@ -171,6 +172,8 @@ namespace Aplikacja
 
             Double delta = 0.25f;
            
+
+  
 
             // To trzeba zrobić jakoś inaczej, np. rekurencyjnie
            // szukamy ay, więc przechodzimy po wszystkich 
