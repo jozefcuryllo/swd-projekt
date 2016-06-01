@@ -75,8 +75,10 @@ namespace Aplikacja
             foreach (Wynik w in wyniki) {
                 switch (w.IdTestu) {
                     case 1:
-                        krotka.Alfa1 += w.WynikTestu;
-                        krotka.Alfa5 += w.WynikTestu;
+                        if (w.WynikTestu == 1) {
+                            krotka.Alfa1 += 1.0d;
+                            krotka.Alfa5 += 1.0d;
+                        }
                         break;
                     case 2:
                     case 3:
@@ -231,9 +233,14 @@ namespace Aplikacja
 
                                         krotka.F12 = FuzzyLogic.IMPLIES(FuzzyLogic.AND(krotka.Alfa5, krotka.Alfa12), krotka.Alfa16);
 
-                                         
+                                        krotka.F13 = FuzzyLogic.IMPLIES(krotka.Alfa2, krotka.Alfa16);
+
+                                        krotka.F14 = FuzzyLogic.IMPLIES(krotka.Alfa16, FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa7), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa8), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa9), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa10), FuzzyLogic.NOT(krotka.Alfa11)))))));
+
+                                        krotka.F15 = FuzzyLogic.OR(krotka.Alfa6, FuzzyLogic.OR(krotka.Alfa7, FuzzyLogic.OR(krotka.Alfa8, FuzzyLogic.OR(krotka.Alfa9, FuzzyLogic.OR(krotka.Alfa10, FuzzyLogic.OR(krotka.Alfa11, krotka.Alfa16))))));
+                                        
                                         // F = F1 ^ F2 ^ F3 ^ F4 ^ ...;
-                                        krotka.F = FuzzyLogic.AND(krotka.F1, FuzzyLogic.AND(krotka.F2, FuzzyLogic.AND(krotka.F3, FuzzyLogic.AND(krotka.F4, FuzzyLogic.AND(krotka.F5, FuzzyLogic.AND(krotka.F6, FuzzyLogic.AND(krotka.F7, FuzzyLogic.AND(krotka.F8, FuzzyLogic.AND(krotka.F9, FuzzyLogic.AND(krotka.F10, FuzzyLogic.AND(krotka.F11, krotka.F12)))))))))));
+                                        krotka.F = FuzzyLogic.AND(krotka.F1, FuzzyLogic.AND(krotka.F2, FuzzyLogic.AND(krotka.F3, FuzzyLogic.AND(krotka.F4, FuzzyLogic.AND(krotka.F5, FuzzyLogic.AND(krotka.F6, FuzzyLogic.AND(krotka.F7, FuzzyLogic.AND(krotka.F8, FuzzyLogic.AND(krotka.F9, FuzzyLogic.AND(krotka.F10, FuzzyLogic.AND(krotka.F11, FuzzyLogic.AND(krotka.F12, FuzzyLogic.AND(krotka.F13, FuzzyLogic.AND(krotka.F14, krotka.F12))))))))))))));
                                         // Fu 
                                         krotka.Fu = Fu;
                                         // F ^ Fu

@@ -38,6 +38,9 @@ namespace Aplikacja.Database
         private Double f10;
         private Double f11;
         private Double f12;
+        private Double f13;
+        private Double f14;
+        private Double f15;
         private Double f;
         private Double fu;
         private Double ffu;
@@ -393,11 +396,11 @@ namespace Aplikacja.Database
 
         public double F12 {
             get {
-                return f12;
+                return F121;
             }
 
             set {
-                f12 = value;
+                F121 = value;
             }
         }
 
@@ -408,6 +411,46 @@ namespace Aplikacja.Database
 
             set {
                 alfa16 = value;
+            }
+        }
+
+        public double F121 {
+            get {
+                return f12;
+            }
+
+            set {
+                f12 = value;
+            }
+        }
+
+        public double F13 {
+            get {
+                return f13;
+            }
+
+            set {
+                f13 = value;
+            }
+        }
+
+        public double F14 {
+            get {
+                return f14;
+            }
+
+            set {
+                f14 = value;
+            }
+        }
+
+        public double F15 {
+            get {
+                return f15;
+            }
+
+            set {
+                f15 = value;
             }
         }
     }
