@@ -340,7 +340,7 @@ namespace Aplikacja
         }
 
         private void generujCSV(Krotka k, Boolean isFirst) {
-            String title = "a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F,Fu,F^Fu";
+            String title = "a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13,F14,F15,F,Fu,F^Fu";
 
             try {
                 StreamWriter file = new StreamWriter("rezultat.csv", true);
@@ -410,6 +410,14 @@ namespace Aplikacja
                     str.Append(k.F10.ToString("0.00").Replace(",", "."));
                     str.Append(',');
                     str.Append(k.F11.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F12.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F13.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F14.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F15.ToString("0.00").Replace(",", "."));
                     str.Append(',');
                     str.Append(k.F.ToString("0.00").Replace(",", "."));
                     str.Append(',');
