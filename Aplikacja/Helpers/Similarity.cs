@@ -62,7 +62,8 @@ namespace Aplikacja.Helpers {
                 }
             }
 
-            return d[d.GetUpperBound(0), d.GetUpperBound(1)] / rozmiar;
+            double levenstein = d[d.GetUpperBound(0), d.GetUpperBound(1)] / rozmiar;
+            return 1.0d - levenstein;
 
         }
 

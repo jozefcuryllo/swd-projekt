@@ -35,7 +35,6 @@
             this.ustawieniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ustawieniaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.pomocToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pomocToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.oProgramieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -95,22 +94,15 @@
             // pomocToolStripMenuItem
             // 
             this.pomocToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pomocToolStripMenuItem1,
             this.oProgramieToolStripMenuItem});
             this.pomocToolStripMenuItem.Name = "pomocToolStripMenuItem";
             this.pomocToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.pomocToolStripMenuItem.Text = "Pomoc";
             // 
-            // pomocToolStripMenuItem1
-            // 
-            this.pomocToolStripMenuItem1.Name = "pomocToolStripMenuItem1";
-            this.pomocToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
-            this.pomocToolStripMenuItem1.Text = "Pomoc";
-            // 
             // oProgramieToolStripMenuItem
             // 
             this.oProgramieToolStripMenuItem.Name = "oProgramieToolStripMenuItem";
-            this.oProgramieToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.oProgramieToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.oProgramieToolStripMenuItem.Text = "O programie";
             this.oProgramieToolStripMenuItem.Click += new System.EventHandler(this.oProgramieToolStripMenuItem_Click);
             // 
@@ -150,7 +142,6 @@
         private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ustawieniaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pomocToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pomocToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem oProgramieToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zakończToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ustawieniaToolStripMenuItem1;

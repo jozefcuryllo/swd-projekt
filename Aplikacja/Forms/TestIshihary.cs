@@ -33,6 +33,7 @@ namespace Aplikacja
             MyDataBase myDataBase = new MyDataBase();
             myDataBase.open();
             myDataBase.clearWyniki();
+            myDataBase.clearDiagnozy();
 
             System.Data.SQLite.SQLiteDataReader sqlReader = myDataBase.query(sql);
             while (sqlReader.Read())

@@ -22,7 +22,7 @@ namespace Aplikacja.Forms {
         public TestFM() {
             InitializeComponent();
             koloryFM = new List<Color>();
-            koloryFM.Add(Color.FromArgb(0x37, 0x81, 0xc1)); //1
+           // koloryFM.Add(Color.FromArgb(0x37, 0x81, 0xc1)); //1
             koloryFM.Add(Color.FromArgb(0x37, 0x85, 0x9c)); //2
             koloryFM.Add(Color.FromArgb(0x8f, 0x6f, 0xa4)); //3
             koloryFM.Add(Color.FromArgb(0x3b, 0x86, 0x90)); //4  #3B8690 
@@ -72,6 +72,7 @@ namespace Aplikacja.Forms {
             foreach(Color c in koloryFM) {
                 wzorcowe.Add(c.ToArgb());
             }
+            wzorcowe.Add(Color.FromArgb(0x37, 0x81, 0xc1).ToArgb()); // 1)
 
             // lista wskazująca protanopię
             protanopia = new List<int>();
@@ -154,7 +155,7 @@ namespace Aplikacja.Forms {
 
 
             // do zapisania do bazy danych
-            double alfa12 = Similarity.levenshtein(wzorcowe, ulozone);
+            double alfa12 = Similarity.levenshtein(ulozone, wzorcowe);
             double alfa13 = Similarity.levenshtein(ulozone, protanopia);
             double alfa14 = Similarity.levenshtein(ulozone, deuteranopia);
             double alfa15 = Similarity.levenshtein(ulozone, achromatyzm);
@@ -194,7 +195,7 @@ namespace Aplikacja.Forms {
 
             myDataBase.close();
             this.Close();
-            MessageBox.Show("Po kliknięciu przycisku nastąpi generowanie pliku CSV", "Generowanie pliku!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Po kliknięciu przycisku nastąpi generowanie wyników, które może zająć kilka minut.", "Generowanie pliku!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Results results = new Results();
             results.Show();
             

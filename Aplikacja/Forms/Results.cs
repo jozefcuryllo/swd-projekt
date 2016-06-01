@@ -1,4 +1,5 @@
 ﻿using Aplikacja.Database;
+using Aplikacja.Forms;
 using Aplikacja.Helpers;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Aplikacja
 
         private List<Wynik> wyniki;
         private double treshold = 0.0d;
+        private double krok = 0.25d;
         String podsumowanie = "";
 
         public Results()
@@ -26,25 +28,37 @@ namespace Aplikacja
             InitializeComponent();
             wyniki = new List<Wynik>();
             pobierzWyniki();
-            analizuj();
+           
 
             String sql = "SELECT * FROM " + Ustawienia.USTAWIENIA_TABLE_NAME + " WHERE " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + "=" + "'prog_wynikow'";
-            MyDataBase myDataBbase = new MyDataBase();
-            SQLiteConnection conn = myDataBbase.open();
-            SQLiteDataReader reader =  myDataBbase.query(sql);
+            MyDataBase myDataBase = new MyDataBase();
+            myDataBase.open();
+            myDataBase.clearDiagnozy();
+
+            SQLiteDataReader reader =  myDataBase.query(sql);
             while (reader.Read()) {
-                treshold = Convert.ToDouble((String) reader[Ustawienia.USTAWIENIA_COLUMN_WARTOSC]);
+                String str = (String)reader[Ustawienia.USTAWIENIA_COLUMN_WARTOSC];
+                str = str.Replace(".", ",");
+                treshold = Convert.ToDouble(str);
             }
-            conn.Close();
-           
+
+            sql = "SELECT * FROM " + Ustawienia.USTAWIENIA_TABLE_NAME + " WHERE " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + "=" + "'krok'";
+            reader = myDataBase.query(sql);
+            while (reader.Read()) {
+                String str = (String)reader[Ustawienia.USTAWIENIA_COLUMN_WARTOSC];
+                str = str.Replace(".", ",");
+                krok = Convert.ToDouble(str);
+            }
+            myDataBase.close();
+
+            analizuj();
         }
 
-        private void analizuj() {
+        private void analizuj(Boolean zapisDoPliku = false) {
             Krotka krotka = new Krotka();
 
             // tablica 1 (monochromatyzm)
             krotka.Alfa1 = 0.0d;
-           
 
             // tablice 2-21 (problem z czerwonym lub zielonym)
             krotka.Alfa2 = 0.0d;
@@ -170,13 +184,16 @@ namespace Aplikacja
             
             generujCSV(null, true);
 
-            Double delta = 0.25f;
-           
+            Double delta = krok;
 
-  
+            MyDataBase myDataBase = new MyDataBase();
+            SQLiteConnection conn = myDataBase.open();
+            SQLiteTransaction t = conn.BeginTransaction();
+            SQLiteCommand c = conn.CreateCommand();
+            c.Transaction = t;
 
             // To trzeba zrobić jakoś inaczej, np. rekurencyjnie
-           // szukamy ay, więc przechodzimy po wszystkich 
+            // szukamy ay, więc przechodzimy po wszystkich 
             for (krotka.Alfa6 = 0f; krotka.Alfa6 <= 1f; krotka.Alfa6 += delta) {
                 for (krotka.Alfa7 = 0f; krotka.Alfa7 <= 1f; krotka.Alfa7 += delta) {
                     for (krotka.Alfa8 = 0f; krotka.Alfa8 <= 1f; krotka.Alfa8 += delta) {
@@ -200,10 +217,10 @@ namespace Aplikacja
                                         // Im więcej odpowiedzi było dobrych to tym bardziej pacjent jest zdrowy
                                         krotka.F5 = FuzzyLogic.IMPLIES(krotka.Alfa5, FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa7), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa8), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa9), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa10), FuzzyLogic.NOT(krotka.Alfa11)))))));
 
-                                        krotka.F6 = FuzzyLogic.IMPLIES(krotka.Alfa12, FuzzyLogic.AND(FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa13), FuzzyLogic.NOT(krotka.Alfa14)), FuzzyLogic.NOT(krotka.Alfa15)));
-
+                                        krotka.F6 = FuzzyLogic.IMPLIES(FuzzyLogic.AND(FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa13), FuzzyLogic.NOT(krotka.Alfa14)), FuzzyLogic.NOT(krotka.Alfa15)), krotka.Alfa12);
+                                        //krotka.F6 = 1;
                                         krotka.F7 = FuzzyLogic.IMPLIES(krotka.Alfa12, FuzzyLogic.AND(FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.NOT(krotka.Alfa10)), FuzzyLogic.NOT(krotka.Alfa8)));
-
+                                        //krotka.F7 = 1;
                                         krotka.F8 = FuzzyLogic.IMPLIES(krotka.Alfa13, krotka.Alfa8);
 
                                         krotka.F9 = FuzzyLogic.IMPLIES(krotka.Alfa14, krotka.Alfa10);
@@ -221,9 +238,12 @@ namespace Aplikacja
                                         krotka.Fu = Fu;
                                         // F ^ Fu
                                         krotka.Ffu = FuzzyLogic.AND(krotka.Fu, krotka.F);
-                                        treshold = 0.01d;
-                                        if (krotka.Fu > treshold && krotka.F > treshold  && krotka.Ffu > treshold) {
-                                            generujCSV(krotka, false);
+
+                                        if (krotka.Ffu > treshold) {
+                                            if (zapisDoPliku) {
+                                                generujCSV(krotka, false);
+                                            }
+                                            zapiszDiagnoze(krotka, myDataBase, c, t);
                                         }
                                     }                  
                                 }
@@ -232,6 +252,37 @@ namespace Aplikacja
                     }
                 }
             }
+            t.Commit();
+            conn.Close();
+            myDataBase.close();
+
+            pokazWyniki();
+        }
+
+        private void pokazWyniki() {
+            MyDataBase myDataBase = new MyDataBase();
+            SQLiteConnection conn = myDataBase.open();
+
+            String sql = "SELECT * FROM " + Diagnoza.DIAGNOZA_TABLE_NAME + " ORDER BY "
+                + Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO + " DESC";
+
+            SQLiteDataReader reader = myDataBase.query(sql);
+            while (reader.Read()) {
+                Diagnoza diagnoza = new Diagnoza();
+                diagnoza.Monochromatyzm = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_MONOCHROMATYZM];
+                diagnoza.Czerwonyzielony = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_ZABURZENIA_CZERW_ZIEL];
+                diagnoza.Protanopia = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_PROTANOPIA];
+                diagnoza.Protanomalia = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_PROTANOMALIA];
+                diagnoza.Deuteranopia = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_DEUTERANOPIA];
+                diagnoza.Deuteranomalia = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_DEUTERANOMALIA];
+                diagnoza.Zdrowy = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_PACJENT_ZDROWY];
+                diagnoza.Prawdopodobienstwo = (Double)reader[Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO];
+
+                makePodsumowanie(diagnoza);
+            }
+            myDataBase.close();
+
+            textBox1.Text = podsumowanie;
         }
 
         private void pobierzWyniki() {
@@ -242,30 +293,46 @@ namespace Aplikacja
             SQLiteDataReader reader = myDataBase.query(sql);
 
            
-                try
+            try
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Wynik wynik = new Wynik();
-                        wynik.Id = Convert.ToInt32(reader[Wynik.NAME_ID]);
-                        wynik.IdTestu = Convert.ToInt32(reader[Wynik.NAME_IDTESTU]);
-                        wynik.Type = (String)reader[Wynik.NAME_TYPE];
-                        wynik.WynikTestu = (Double)reader[Wynik.NAME_WYNIK];
-                        wynik.Data = (String)reader[Wynik.NAME_DATA];
+                    Wynik wynik = new Wynik();
+                    wynik.Id = Convert.ToInt32(reader[Wynik.NAME_ID]);
+                    wynik.IdTestu = Convert.ToInt32(reader[Wynik.NAME_IDTESTU]);
+                    wynik.Type = (String)reader[Wynik.NAME_TYPE];
+                    wynik.WynikTestu = (Double)reader[Wynik.NAME_WYNIK];
+                    wynik.Data = (String)reader[Wynik.NAME_DATA];
 
-                        wyniki.Add(wynik);
-                    }
-                 }
-                catch {
-                    MessageBox.Show("Zapisane dane zostały uszkodzone. Spróbuj ponownie!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    wyniki.Add(wynik);
                 }
+                }
+            catch {
+                MessageBox.Show("Zapisane dane zostały uszkodzone. Spróbuj ponownie!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
 
             myDataBase.close();
         }
 
+        private void zapiszDiagnoze(Krotka k, MyDataBase myDataBase,  SQLiteCommand c, SQLiteTransaction t) {
+            Diagnoza diagnoza = new Diagnoza();
+            diagnoza.Monochromatyzm = k.Alfa6;
+            diagnoza.Czerwonyzielony = k.Alfa7;
+            diagnoza.Protanopia = k.Alfa8;
+            diagnoza.Protanomalia = k.Alfa9;
+            diagnoza.Deuteranopia = k.Alfa10;
+            diagnoza.Deuteranomalia = k.Alfa11;
+            diagnoza.Zdrowy = k.Alfa16;
+            diagnoza.Prawdopodobienstwo = k.Ffu;
+
+            SQLiteCommand comm = myDataBase.getSQLStringDiagnoza(diagnoza);
+            c = comm;
+            c.Transaction = t;
+            c.ExecuteNonQuery();
+        }
+
         private void generujCSV(Krotka k, Boolean isFirst) {
-            
             String title = "a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F,Fu,F^Fu";
 
             try {
@@ -282,102 +349,114 @@ namespace Aplikacja
                     s.Append("==============================================\r\n\r\n");
                 }
                 else {
-                        StringBuilder str = new StringBuilder();
-                        str.Append(k.Alfa1.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa2.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa3.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa4.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa5.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa6.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa7.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa8.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa9.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa10.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa11.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa12.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa13.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa14.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa15.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Alfa16.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F1.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F2.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F3.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F4.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F5.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F6.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F7.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F8.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F9.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F10.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F11.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.F.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Fu.ToString("0.00").Replace(",", "."));
-                        str.Append(',');
-                        str.Append(k.Ffu.ToString("0.00").Replace(",", "."));
-                        file.WriteLine(str.ToString());
-
-
-                        StringBuilder s = new StringBuilder();
-                        s.Append("==============================================\r\n");
-                        s.Append("Brak zaburzeń: " + k.Alfa16.ToString("P1").Replace(",", ".") + "\r\n");
-                        s.Append("Monochromatyzm: " + k.Alfa6.ToString("P1").Replace(",", ".") + "\r\n");
-                        s.Append("Zaburzenia czerwony/zielony: " + k.Alfa7.ToString("P1").Replace(",", ".") + "\r\n");
-                        s.Append("Protanopia: " + k.Alfa8.ToString("P1").Replace(",", ".") + "\r\n");
-                        s.Append("Protanomalia: " + k.Alfa9.ToString("P1").Replace(",", ".") + "\r\n");
-                        s.Append("Deuteranopia: " + k.Alfa10.ToString("P1").Replace(",", ".") + "\r\n");
-                        s.Append("Deuteranomalia: " + k.Alfa11.ToString("P1").Replace(",", ".") + "\r\n");
-                        s.Append("==============================================\r\n");
-                        s.Append("\r\n");
-
-                        podsumowanie += s.ToString();
-                        textBox1.Text = podsumowanie;
-                }
+                    StringBuilder str = new StringBuilder();
+                    str.Append(k.Alfa1.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa2.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa3.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa4.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa5.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa6.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa7.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa8.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa9.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa10.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa11.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa12.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa13.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa14.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa15.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Alfa16.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F1.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F2.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F3.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F4.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F5.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F6.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F7.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F8.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F9.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F10.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F11.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.F.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Fu.ToString("0.00").Replace(",", "."));
+                    str.Append(',');
+                    str.Append(k.Ffu.ToString("0.00").Replace(",", "."));
+                    file.WriteLine(str.ToString());
+        }
 
 
                 file.Close();
             }
             catch {
                 MessageBox.Show("Błąd zapisu do pliku. Sprobuj ponownie!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
 
         }
 
         private double zrobFu(double wartosc) {
-            if (wartosc >= 0.5)
+            if (wartosc >= 0.5) {
                 return wartosc;
+            }
             else
                 return FuzzyLogic.NOT(wartosc);
         }
 
+        private void makePodsumowanie(Diagnoza diagnoza) {
+            StringBuilder s = new StringBuilder();
+            s.Append("==============================================\r\n");
+            s.Append("Prawdopodobieństwo poprawnej diagnozy: " + diagnoza.Prawdopodobienstwo.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Brak zaburzeń: " + diagnoza.Zdrowy.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Monochromatyzm: " + diagnoza.Monochromatyzm.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Zaburzenia czerwony/zielony: " + diagnoza.Czerwonyzielony.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Protanopia: " + diagnoza.Protanopia.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Protanomalia: " + diagnoza.Protanomalia.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Deuteranopia: " + diagnoza.Deuteranopia.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Deuteranomalia: " + diagnoza.Deuteranomalia.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("==============================================\r\n");
+            s.Append("\r\n");
 
+            podsumowanie += s.ToString();
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            analizuj(true);
+            MessageBox.Show("Pomyślnie wygenerowano plik rezultat.csv", "Zakończono!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            Wykres wykres = new Wykres();
+            wykres.Show();
+        }
     }
 }

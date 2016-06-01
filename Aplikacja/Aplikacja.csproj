@@ -44,6 +44,14 @@
       <HintPath>packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Core.1.0.0-unstable2100\lib\net45\OxyPlot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=245eacd6b5d2d338, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.WindowsForms.1.0.0-unstable2100\lib\net45\OxyPlot.WindowsForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -88,6 +96,7 @@
     <Compile Include="Components\FMdrag.Designer.cs">
       <DependentUpon>FMdrag.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database\Diagnoza.cs" />
     <Compile Include="Database\Ustawienia.cs" />
     <Compile Include="Database\Krotka.cs" />
     <Compile Include="Forms\AboutBox1.cs">
@@ -108,6 +117,12 @@
     </Compile>
     <Compile Include="Forms\TestFM.Designer.cs">
       <DependentUpon>TestFM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Wykres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Wykres.Designer.cs">
+      <DependentUpon>Wykres.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FuzzyLogic.cs" />
     <Compile Include="Helpers\Shuffle.cs" />
@@ -146,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TestFM.resx">
       <DependentUpon>TestFM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Wykres.resx">
+      <DependentUpon>Wykres.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

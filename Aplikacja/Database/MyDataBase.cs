@@ -24,6 +24,7 @@ namespace Aplikacja
                 addWynikiTable();
                 addImagesTable();
                 addImagesRecords();
+                addDiagnozaTable();
                 close();
             }
         }
@@ -67,17 +68,29 @@ namespace Aplikacja
         }
 
         public int addWynikiTable() {
-            String sql = "CREATE TABLE " + Wynik.NAME_TABLE + " (" + Wynik.NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Wynik.NAME_IDTESTU + " INTEGER, " + Wynik.NAME_WYNIK + " REAL, " + Wynik.NAME_TYPE + " TEXT NOT NULL, " + Wynik.NAME_DATA + " TEXT) ";
+            String sql = "CREATE TABLE " + Wynik.NAME_TABLE + " (" 
+                + Wynik.NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+                + Wynik.NAME_IDTESTU + " INTEGER, " 
+                + Wynik.NAME_WYNIK + " REAL, " 
+                + Wynik.NAME_TYPE + " TEXT NOT NULL, " 
+                + Wynik.NAME_DATA + " TEXT) ";
             return nonQuery(sql);
         }
 
         public int addImagesTable() {
-            String sql = "CREATE TABLE "+ Images.IMAGE_TABLE_NAME + " ( " + Images.IMAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Images.IMAGE_NAME + " TEXT NOT NULL, " + Images.IMAGE_TYPE + " TEXT NOT NULL, " + Images.IMAGE_VALUE + " TEXT, " + Images.IMAGE_WRONG_VALUE + " TEXT ) ";
+            String sql = "CREATE TABLE "+ Images.IMAGE_TABLE_NAME + " ( " 
+                + Images.IMAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+                + Images.IMAGE_NAME + " TEXT NOT NULL, " 
+                + Images.IMAGE_TYPE + " TEXT NOT NULL, " 
+                + Images.IMAGE_VALUE + " TEXT, " 
+                + Images.IMAGE_WRONG_VALUE + " TEXT ) ";
             return nonQuery(sql);
         }
 
         public int zmienUstawieniaTable(String klucz, String wartosc) {
-            String sql = "UPDATE " + Ustawienia.USTAWIENIA_TABLE_NAME + " SET  " +  Ustawienia.USTAWIENIA_COLUMN_WARTOSC + "=@param1 WHERE " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + "=@param2" ;
+            String sql = "UPDATE " + Ustawienia.USTAWIENIA_TABLE_NAME + " SET  " 
+                +  Ustawienia.USTAWIENIA_COLUMN_WARTOSC + "=@param1 WHERE " 
+                + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + "=@param2" ;
 
             if (m_dbConnection != null) {
                 SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
@@ -91,7 +104,27 @@ namespace Aplikacja
         }
 
         public int addUstawieniaTable() {
-            String sql = "CREATE TABLE " + Ustawienia.USTAWIENIA_TABLE_NAME + " ( " + Ustawienia.USTAWIENIA_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + " TEXT NOT NULL, " + Ustawienia.USTAWIENIA_COLUMN_WARTOSC + " TEXT NOT NULL " + " ) ";
+            String sql = "CREATE TABLE " + Ustawienia.USTAWIENIA_TABLE_NAME + " ( " 
+                + Ustawienia.USTAWIENIA_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+                + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + " TEXT NOT NULL, " 
+                + Ustawienia.USTAWIENIA_COLUMN_WARTOSC + " TEXT NOT NULL " + " ) ";
+            return nonQuery(sql);
+        }
+
+        public int addDiagnozaTable() {
+            String sql = "CREATE TABLE " + Diagnoza.DIAGNOZA_TABLE_NAME + " ( " 
+              //  + Diagnoza.DIAGNOZA_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+                + Diagnoza.DIAGNOZA_COLUMN_MONOCHROMATYZM + " REAL, " 
+                + Diagnoza.DIAGNOZA_COLUMN_PROTANOPIA + " REAL, "
+                + Diagnoza.DIAGNOZA_COLUMN_PROTANOMALIA + " REAL, "
+                + Diagnoza.DIAGNOZA_COLUMN_DEUTERANOPIA + " REAL, "
+                + Diagnoza.DIAGNOZA_COLUMN_DEUTERANOMALIA + " REAL, "
+                + Diagnoza.DIAGNOZA_COLUMN_ZABURZENIA_CZERW_ZIEL + " REAL, "
+                + Diagnoza.DIAGNOZA_COLUMN_PACJENT_ZDROWY + " REAL, "
+                + Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO + " REAL " + " ) ";
+            nonQuery(sql);
+
+            sql = "CREATE INDEX indexdiagnozatbl ON " + Diagnoza.DIAGNOZA_TABLE_NAME + " (" + Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO + ")";
             return nonQuery(sql);
         }
 
@@ -133,8 +166,74 @@ namespace Aplikacja
             return 0;
         }
 
+        public SQLiteCommand getSQLStringDiagnoza(Diagnoza diagnoza) {
+            String sql = "INSERT INTO " + Diagnoza.DIAGNOZA_TABLE_NAME + " ( "
+                // + Diagnoza.DIAGNOZA_COLUMN_ID + ", " 
+                + Diagnoza.DIAGNOZA_COLUMN_MONOCHROMATYZM + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_PROTANOPIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_PROTANOMALIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_DEUTERANOPIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_DEUTERANOMALIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_ZABURZENIA_CZERW_ZIEL + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_PACJENT_ZDROWY + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO
+                + " ) VALUES (@param2, @param3, @param4, @param5, @param6, @param7, @param8, @param9)";
+
+            if (m_dbConnection != null) {
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                command.CommandText = sql;
+                command.CommandType = System.Data.CommandType.Text;
+                // command.Parameters.Add(new SQLiteParameter("@param1", diagnoza.Id));
+                command.Parameters.Add(new SQLiteParameter("@param2", diagnoza.Monochromatyzm));
+                command.Parameters.Add(new SQLiteParameter("@param3", diagnoza.Protanopia));
+                command.Parameters.Add(new SQLiteParameter("@param4", diagnoza.Protanomalia));
+                command.Parameters.Add(new SQLiteParameter("@param5", diagnoza.Deuteranopia));
+                command.Parameters.Add(new SQLiteParameter("@param6", diagnoza.Deuteranomalia));
+                command.Parameters.Add(new SQLiteParameter("@param7", diagnoza.Czerwonyzielony));
+                command.Parameters.Add(new SQLiteParameter("@param8", diagnoza.Zdrowy));
+                command.Parameters.Add(new SQLiteParameter("@param9", diagnoza.Prawdopodobienstwo));
+                return command;
+            }
+            return null;
+        }
+
+        public int addDiagnoza(Diagnoza diagnoza) {
+            String sql = "INSERT INTO " + Diagnoza.DIAGNOZA_TABLE_NAME + " ( " 
+               // + Diagnoza.DIAGNOZA_COLUMN_ID + ", " 
+                + Diagnoza.DIAGNOZA_COLUMN_MONOCHROMATYZM + ", " 
+                + Diagnoza.DIAGNOZA_COLUMN_PROTANOPIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_PROTANOMALIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_DEUTERANOPIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_DEUTERANOMALIA + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_ZABURZENIA_CZERW_ZIEL + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_PACJENT_ZDROWY + ", "
+                + Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO 
+                + " ) VALUES (@param2, @param3, @param4, @param5, @param6, @param7, @param8, @param9)";
+
+            if (m_dbConnection != null) {
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                command.CommandText = sql;
+                command.CommandType = System.Data.CommandType.Text;
+               // command.Parameters.Add(new SQLiteParameter("@param1", diagnoza.Id));
+                command.Parameters.Add(new SQLiteParameter("@param2", diagnoza.Monochromatyzm));
+                command.Parameters.Add(new SQLiteParameter("@param3", diagnoza.Protanopia));
+                command.Parameters.Add(new SQLiteParameter("@param4", diagnoza.Protanomalia));
+                command.Parameters.Add(new SQLiteParameter("@param5", diagnoza.Deuteranopia));
+                command.Parameters.Add(new SQLiteParameter("@param6", diagnoza.Deuteranomalia));
+                command.Parameters.Add(new SQLiteParameter("@param7", diagnoza.Czerwonyzielony));
+                command.Parameters.Add(new SQLiteParameter("@param8", diagnoza.Zdrowy));
+                command.Parameters.Add(new SQLiteParameter("@param9", diagnoza.Prawdopodobienstwo));
+                return command.ExecuteNonQuery();
+            }
+            return -1;
+        }
+
         public int addUstawienie(Ustawienia ustawienie) {
-            String sql = "INSERT INTO " + Ustawienia.USTAWIENIA_TABLE_NAME + " ( " + Ustawienia.USTAWIENIA_COLUMN_ID + ", " + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + ", " + Ustawienia.USTAWIENIA_COLUMN_WARTOSC + " ) VALUES (@param1, @param2, @param3)";
+            String sql = "INSERT INTO " + Ustawienia.USTAWIENIA_TABLE_NAME + " ( " 
+                + Ustawienia.USTAWIENIA_COLUMN_ID + ", " 
+                + Ustawienia.USTAWIENIA_COLUMN_KLUCZ + ", " 
+                + Ustawienia.USTAWIENIA_COLUMN_WARTOSC 
+                + " ) VALUES (@param1, @param2, @param3)";
 
             if (m_dbConnection != null) {
                 SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
@@ -152,7 +251,8 @@ namespace Aplikacja
 
             List<Ustawienia> ustawienia = new List<Ustawienia>();
             ustawienia.Add(new Ustawienia(1, "prog_wynikow", "0.01"));
-            
+            ustawienia.Add(new Ustawienia(2, "krok", "0.25"));
+
             foreach (Ustawienia i in ustawienia) {
                 addUstawienie(i);
             }
@@ -161,7 +261,12 @@ namespace Aplikacja
         }
 
         public int addImage(Images image) {
-            String sql = "INSERT INTO " + Images.IMAGE_TABLE_NAME + " ( " + Images.IMAGE_NAME + ", " + Images.IMAGE_TYPE + ", " + Images.IMAGE_VALUE + ", " + Images.IMAGE_WRONG_VALUE + " ) VALUES (@param1, @param2, @param3, @param4)";
+            String sql = "INSERT INTO " + Images.IMAGE_TABLE_NAME + " ( " 
+                + Images.IMAGE_NAME + ", " 
+                + Images.IMAGE_TYPE + ", " 
+                + Images.IMAGE_VALUE + ", " 
+                + Images.IMAGE_WRONG_VALUE 
+                + " ) VALUES (@param1, @param2, @param3, @param4)";
 
             if (m_dbConnection != null)
             {
@@ -179,7 +284,12 @@ namespace Aplikacja
 
         public int addWynik(Wynik wynik)
         {
-            String sql = "INSERT INTO " + Wynik.NAME_TABLE + " ( "+Wynik.NAME_IDTESTU + ", " + Wynik.NAME_WYNIK + ", " + Wynik.NAME_TYPE + ", " + Wynik.NAME_DATA + " ) VALUES (@param1, @param2, @param3, @param4)";
+            String sql = "INSERT INTO " + Wynik.NAME_TABLE + " ( "
+                + Wynik.NAME_IDTESTU + ", " 
+                + Wynik.NAME_WYNIK + ", " 
+                + Wynik.NAME_TYPE + ", " 
+                + Wynik.NAME_DATA 
+                + " ) VALUES (@param1, @param2, @param3, @param4)";
 
             if (m_dbConnection != null)
             {
@@ -197,13 +307,29 @@ namespace Aplikacja
 
         public int clearWyniki()
         {
-            String sql = "DELETE FROM " + Wynik.NAME_TABLE + ";";
+            String sql = "DELETE FROM " + Wynik.NAME_TABLE + "";
+
+            nonQuery(sql);
+            sql = "VACUUM;";
 
             return nonQuery(sql);
         }
 
+        public int clearDiagnozy() {
+            String sql = "DELETE FROM " + Diagnoza.DIAGNOZA_TABLE_NAME + "";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            command.CommandType = System.Data.CommandType.Text;
+            command.ExecuteNonQuery();
 
-    
+            sql = "VACUUM;";
+
+            return nonQuery(sql) ;
+
+        }
+
+
+
+
 
     }
 }

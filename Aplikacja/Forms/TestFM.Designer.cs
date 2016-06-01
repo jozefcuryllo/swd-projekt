@@ -100,6 +100,7 @@
             this.fMblok16.Size = new System.Drawing.Size(33, 50);
             this.fMblok16.TabIndex = 31;
             this.fMblok16.Text = "fMblok16";
+            this.fMblok16.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok15
             // 
@@ -109,6 +110,7 @@
             this.fMblok15.Size = new System.Drawing.Size(33, 50);
             this.fMblok15.TabIndex = 30;
             this.fMblok15.Text = "fMblok15";
+            this.fMblok15.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok14
             // 
@@ -118,6 +120,7 @@
             this.fMblok14.Size = new System.Drawing.Size(33, 50);
             this.fMblok14.TabIndex = 29;
             this.fMblok14.Text = "fMblok14";
+            this.fMblok14.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok13
             // 
@@ -127,6 +130,7 @@
             this.fMblok13.Size = new System.Drawing.Size(33, 50);
             this.fMblok13.TabIndex = 28;
             this.fMblok13.Text = "fMblok13";
+            this.fMblok13.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok12
             // 
@@ -136,6 +140,7 @@
             this.fMblok12.Size = new System.Drawing.Size(33, 50);
             this.fMblok12.TabIndex = 27;
             this.fMblok12.Text = "fMblok12";
+            this.fMblok12.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok11
             // 
@@ -145,6 +150,7 @@
             this.fMblok11.Size = new System.Drawing.Size(33, 50);
             this.fMblok11.TabIndex = 26;
             this.fMblok11.Text = "fMblok11";
+            this.fMblok11.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok10
             // 
@@ -154,6 +160,7 @@
             this.fMblok10.Size = new System.Drawing.Size(33, 50);
             this.fMblok10.TabIndex = 25;
             this.fMblok10.Text = "fMblok10";
+            this.fMblok10.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok9
             // 
@@ -163,6 +170,7 @@
             this.fMblok9.Size = new System.Drawing.Size(33, 50);
             this.fMblok9.TabIndex = 24;
             this.fMblok9.Text = "fMblok9";
+            this.fMblok9.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok8
             // 
@@ -172,6 +180,7 @@
             this.fMblok8.Size = new System.Drawing.Size(33, 50);
             this.fMblok8.TabIndex = 23;
             this.fMblok8.Text = "fMblok8";
+            this.fMblok8.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok7
             // 
@@ -181,6 +190,7 @@
             this.fMblok7.Size = new System.Drawing.Size(33, 50);
             this.fMblok7.TabIndex = 22;
             this.fMblok7.Text = "fMblok7";
+            this.fMblok7.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok6
             // 
@@ -190,6 +200,7 @@
             this.fMblok6.Size = new System.Drawing.Size(33, 50);
             this.fMblok6.TabIndex = 21;
             this.fMblok6.Text = "fMblok6";
+            this.fMblok6.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok5
             // 
@@ -199,6 +210,7 @@
             this.fMblok5.Size = new System.Drawing.Size(33, 50);
             this.fMblok5.TabIndex = 20;
             this.fMblok5.Text = "fMblok5";
+            this.fMblok5.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok4
             // 
@@ -208,6 +220,7 @@
             this.fMblok4.Size = new System.Drawing.Size(33, 50);
             this.fMblok4.TabIndex = 19;
             this.fMblok4.Text = "fMblok4";
+            this.fMblok4.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok3
             // 
@@ -217,6 +230,7 @@
             this.fMblok3.Size = new System.Drawing.Size(33, 50);
             this.fMblok3.TabIndex = 18;
             this.fMblok3.Text = "fMblok3";
+            this.fMblok3.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok2
             // 
@@ -226,6 +240,7 @@
             this.fMblok2.Size = new System.Drawing.Size(33, 50);
             this.fMblok2.TabIndex = 17;
             this.fMblok2.Text = "fMblok2";
+            this.fMblok2.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // fMblok1
             // 
@@ -235,12 +250,13 @@
             this.fMblok1.Size = new System.Drawing.Size(33, 50);
             this.fMblok1.TabIndex = 0;
             this.fMblok1.Text = "fMblok1";
+            this.fMblok1.UlozonyKolor = System.Drawing.Color.Black;
             // 
             // TestFM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(806, 301);
+            this.ClientSize = new System.Drawing.Size(741, 301);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);

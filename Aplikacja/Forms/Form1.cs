@@ -19,7 +19,6 @@ namespace Aplikacja
         {
             InitializeComponent();
             // Wyśrodkowanie przycisku
-            // TEST
             button1.Left = (this.ClientSize.Width - button1.Width) / 2;
             button1.Top = (this.ClientSize.Height - button1.Height) / 2;
 
