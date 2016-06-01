@@ -98,11 +98,28 @@ namespace Aplikacja
                     case 15:
                     case 16:
                     case 17:
+                        if (w.WynikTestu == 1) {
+                            krotka.Alfa17 += 1.0d;
+                        }
+                        if (w.WynikTestu == 2) {
+                            krotka.Alfa2 += 1.0d;
+                        }
+                        if (w.WynikTestu == 3) {
+                            krotka.Alfa17 += 1.0d;
+                        }
+                        krotka.Alfa5 += w.WynikTestu;
+                        break;
                     case 18:
                     case 19:
                     case 20:
                     case 21:
-                        krotka.Alfa2 += w.WynikTestu;
+                        if (w.WynikTestu == 1) {
+                            krotka.Alfa2 += 1.0d;
+                        }
+                        if (w.WynikTestu == 2) {
+                            krotka.Alfa17 += 1.0d;
+                        }
+                        
                         krotka.Alfa5 += w.WynikTestu;
                         break;
                     case 22:
@@ -170,15 +187,16 @@ namespace Aplikacja
             krotka.Alfa2 = krotka.Alfa2 / 20f;
             krotka.Alfa3 = krotka.Alfa3 / 4f;
             krotka.Alfa4 = krotka.Alfa4 / 4f;
-            krotka.Alfa5 = krotka.Alfa5 / 26f;
-
+            //krotka.Alfa5 = krotka.Alfa5 / 26f;
+            krotka.Alfa5 = 1.0d;
+            krotka.Alfa17 = krotka.Alfa17 / 20f;
             return krotka;
         }
 
         private void analizuj(Boolean zapisDoPliku = false) {
 
             Krotka krotka = ustawKrotke();
-            Double Fu = FuzzyLogic.AND(zrobFu(krotka.Alfa1), FuzzyLogic.AND(zrobFu(krotka.Alfa2), FuzzyLogic.AND(zrobFu(krotka.Alfa3), FuzzyLogic.AND(zrobFu(krotka.Alfa4), FuzzyLogic.AND(zrobFu(krotka.Alfa5), FuzzyLogic.AND(zrobFu(krotka.Alfa12), FuzzyLogic.AND(zrobFu(krotka.Alfa13), FuzzyLogic.AND(zrobFu(krotka.Alfa14), zrobFu(krotka.Alfa15)))))))));
+            Double Fu = FuzzyLogic.AND(zrobFu(krotka.Alfa1), FuzzyLogic.AND(zrobFu(krotka.Alfa2), FuzzyLogic.AND(zrobFu(krotka.Alfa3), FuzzyLogic.AND(zrobFu(krotka.Alfa4), FuzzyLogic.AND(zrobFu(krotka.Alfa5), FuzzyLogic.AND(zrobFu(krotka.Alfa12), FuzzyLogic.AND(zrobFu(krotka.Alfa13), FuzzyLogic.AND(zrobFu(krotka.Alfa14), FuzzyLogic.AND(zrobFu(krotka.Alfa15), zrobFu(krotka.Alfa17))))))))));
             
             generujCSV(null, true);
 
@@ -200,16 +218,16 @@ namespace Aplikacja
                                 for (krotka.Alfa11 = 0f; krotka.Alfa11 <= 1f; krotka.Alfa11 += delta) {
                                     for (krotka.Alfa16 = 0f; krotka.Alfa16 <= 1f; krotka.Alfa16 += delta) {
                                         // F1 = -alfa1 => alfa6 (monochromatyzm)
-                                        krotka.F1 = FuzzyLogic.IMPLIES(FuzzyLogic.NOT(krotka.Alfa1), krotka.Alfa6);
+                                        krotka.F1 = FuzzyLogic.XNR(krotka.Alfa1, FuzzyLogic.NOT(krotka.Alfa6));
 
                                         // F2 = -alfa2 => alfa7 (zaburzenia czerwonego/zielonego)
-                                        krotka.F2 = FuzzyLogic.IMPLIES(FuzzyLogic.NOT(krotka.Alfa2), krotka.Alfa7);
+                                        krotka.F2 = FuzzyLogic.XNR(krotka.Alfa2, FuzzyLogic.NOT(krotka.Alfa7));
 
                                         // F3 = -alfa3 => alfa8 v alfay9 (protanopia lub protanomalia)
-                                        krotka.F3 = FuzzyLogic.IMPLIES(FuzzyLogic.NOT(krotka.Alfa3), FuzzyLogic.OR(krotka.Alfa8, krotka.Alfa9));
+                                        krotka.F3 = FuzzyLogic.XNR(krotka.Alfa3, FuzzyLogic.OR(krotka.Alfa8, krotka.Alfa9));
 
                                         // F4 = -alfa4 => alfa10 v alfa11 (Deuteranopia lub deuteranomalia)
-                                        krotka.F4 = FuzzyLogic.IMPLIES(FuzzyLogic.NOT(krotka.Alfa4), FuzzyLogic.OR(krotka.Alfa10, krotka.Alfa11));
+                                        krotka.F4 = FuzzyLogic.XNR(krotka.Alfa4, FuzzyLogic.OR(krotka.Alfa10, krotka.Alfa11));
 
                                         // F5 = a5 => -a6 ^ -a7 ^ -a8 ^ -a9 ^ -a10 ^ -a11
                                         // Im więcej odpowiedzi było dobrych to tym bardziej pacjent jest zdrowy
@@ -227,16 +245,17 @@ namespace Aplikacja
 
                                         krotka.F11 = FuzzyLogic.IMPLIES(FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa7), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa8), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa9), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa10), FuzzyLogic.NOT(krotka.Alfa11)))))), krotka.Alfa16);
 
-                                        krotka.F12 = FuzzyLogic.IMPLIES(FuzzyLogic.AND(krotka.Alfa5, krotka.Alfa12), krotka.Alfa16);
+                                        krotka.F12 = FuzzyLogic.IMPLIES( krotka.Alfa12, krotka.Alfa16);
 
                                         krotka.F13 = FuzzyLogic.IMPLIES(krotka.Alfa2, krotka.Alfa16);
 
                                         krotka.F14 = FuzzyLogic.IMPLIES(krotka.Alfa16, FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa7), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa8), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa9), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa10), FuzzyLogic.NOT(krotka.Alfa11)))))));
 
                                         krotka.F15 = FuzzyLogic.OR(krotka.Alfa6, FuzzyLogic.OR(krotka.Alfa7, FuzzyLogic.OR(krotka.Alfa8, FuzzyLogic.OR(krotka.Alfa9, FuzzyLogic.OR(krotka.Alfa10, FuzzyLogic.OR(krotka.Alfa11, krotka.Alfa16))))));
-                                        
+                                        krotka.F16 = FuzzyLogic.XNR(krotka.Alfa17, krotka.Alfa7);
+                                        krotka.F17 = FuzzyLogic.IMPLIES(FuzzyLogic.AND(krotka.Alfa7,FuzzyLogic.AND(krotka.Alfa8,FuzzyLogic.AND(krotka.Alfa9,FuzzyLogic.AND(krotka.Alfa10,FuzzyLogic.AND(krotka.Alfa11, FuzzyLogic.NOT(krotka.Alfa16)))))), krotka.Alfa6);
                                         // F = F1 ^ F2 ^ F3 ^ F4 ^ ...;
-                                        krotka.F = FuzzyLogic.AND(krotka.F1, FuzzyLogic.AND(krotka.F2, FuzzyLogic.AND(krotka.F3, FuzzyLogic.AND(krotka.F4, FuzzyLogic.AND(krotka.F5, FuzzyLogic.AND(krotka.F6, FuzzyLogic.AND(krotka.F7, FuzzyLogic.AND(krotka.F8, FuzzyLogic.AND(krotka.F9, FuzzyLogic.AND(krotka.F10, FuzzyLogic.AND(krotka.F11, FuzzyLogic.AND(krotka.F12, FuzzyLogic.AND(krotka.F13, FuzzyLogic.AND(krotka.F14, krotka.F15))))))))))))));
+                                        krotka.F = FuzzyLogic.AND(krotka.F1, FuzzyLogic.AND(krotka.F2, FuzzyLogic.AND(krotka.F3, FuzzyLogic.AND(krotka.F4, FuzzyLogic.AND(krotka.F5, FuzzyLogic.AND(krotka.F6, FuzzyLogic.AND(krotka.F7, FuzzyLogic.AND(krotka.F8, FuzzyLogic.AND(krotka.F9, FuzzyLogic.AND(krotka.F10, FuzzyLogic.AND(krotka.F11, FuzzyLogic.AND(krotka.F12, FuzzyLogic.AND(krotka.F13, FuzzyLogic.AND(krotka.F14, FuzzyLogic.AND(krotka.F15,FuzzyLogic.AND( krotka.F16, krotka.F17))))))))))))))));
                                         // Fu 
                                         krotka.Fu = Fu;
                                         // F ^ Fu

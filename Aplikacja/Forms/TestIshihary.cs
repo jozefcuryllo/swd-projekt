@@ -85,13 +85,32 @@ namespace Aplikacja
             try
             {
                
-                if (image.Id < 22)
+                if (image.Id < 18)
                 {
-                    wynik.WynikTestu = image.Value == wartosc ? 1 : 0; // jeśli wartość wzorcowa jest równa podanej przez pacjenta to wynik = 1, inaczej = 0; 
-                }
-                else {
                     if (wartosc == null) {
-                        wynik.WynikTestu = 0.0d;
+                        wynik.WynikTestu = 1;
+                    }
+                    else if (wartosc == image.Value) {
+                        wynik.WynikTestu = 2;
+                    }
+                    else {
+                        wynik.WynikTestu = 3;
+                    }
+                }
+                if (image.Id > 18 && image.Id < 22) {
+                    if (wartosc == null) {
+                        wynik.WynikTestu = 1;
+                    }
+                    else if(wartosc == image.WrongValue) {
+                        wynik.WynikTestu = 2;
+                    }
+                    else {
+                        wynik.WynikTestu = 0;
+                    }
+                }
+               if(image.Id > 22) {
+                    if (wartosc == null) {
+                        wynik.WynikTestu = 1.0d;
                     }
                     else
                     {

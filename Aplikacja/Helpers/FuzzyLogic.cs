@@ -30,19 +30,19 @@ namespace Aplikacja.Helpers
         public static Double AND(Double a, Double b) {
 
             // Zadeh
-            // return minimum(a, b);
+             return minimum(a, b);
 
             // Hyperbolic Paraboloid
-            return a * b;
+            //return a * b;
         }
 
         public static Double OR(Double a, Double b) {
 
             // Zadeh
-            // return maximum(a, b);
+             return maximum(a, b);
 
             //Hyperbolic Paraboloid
-            return a + b - (a * b);
+            //return a + b - (a * b);
         }
 
         public static Double NOT(Double a) {
@@ -51,19 +51,19 @@ namespace Aplikacja.Helpers
 
         public static Double XOR(Double a, Double b) {
             // Zadeh
-            // return a + b - 2.0.0d * (minimum(a, b));
+             return a + b - 2.0d * (minimum(a, b));
 
             // Hyperbolic Paraboloid
-            return a + b - (2.0d * a * b); 
+            //return a + b - (2.0d * a * b); 
         }
 
         public static Double IMPLIES(Double a, Double b) {
 
             // Zadeh
-            // return 1.0.0d - minimum(a, 1.0.0d - b);
+             return 1.0d - minimum(a, 1.0d - b);
 
             // Hyperbolic Paraboloid
-            return 1.0d - a + (a * b);
+           // return 1.0d - a + (a * b);
         }
 
         public static Double NAND(Double a, Double b) {
@@ -97,10 +97,10 @@ namespace Aplikacja.Helpers
         public static Double XNR(Double a, Double b) {
 
             // Zadeh
-            // return 1 - a - b + 2 * minimum(a, b);
+             return 1 - a - b + 2 * minimum(a, b);
 
             // Hyperbolic Paraboloid
-            return 1 - a - b + (2 * a * b);
+            //return 1 - a - b + (2 * a * b);
         }
     }
 }
