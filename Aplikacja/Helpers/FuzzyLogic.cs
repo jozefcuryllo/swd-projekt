@@ -93,5 +93,14 @@ namespace Aplikacja.Helpers
             // Hyperbolic Paraboloid
             return a * (1.0d - b);
         }
+
+        public static Double XNR(Double a, Double b) {
+
+            // Zadeh
+            // return 1 - a - b + 2 * minimum(a, b);
+
+            // Hyperbolic Paraboloid
+            return 1 - a - b + (2 * a * b);
+        }
     }
 }

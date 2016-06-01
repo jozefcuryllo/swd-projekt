@@ -22,6 +22,7 @@ namespace Aplikacja
         private double treshold = 0.0d;
         private double krok = 0.25d;
         String podsumowanie = "";
+        String csv = "";
 
         public Results()
         {
@@ -54,7 +55,8 @@ namespace Aplikacja
             analizuj();
         }
 
-        private void analizuj(Boolean zapisDoPliku = false) {
+        private Krotka ustawKrotke() {
+
             Krotka krotka = new Krotka();
 
             // tablica 1 (monochromatyzm)
@@ -104,8 +106,7 @@ namespace Aplikacja
                         krotka.Alfa5 += w.WynikTestu;
                         break;
                     case 22:
-                        if (w.WynikTestu == 6)
-                        {
+                        if (w.WynikTestu == 6) {
                             krotka.Alfa3 += 1.0d;
                         }
                         if (w.WynikTestu == 2) {
@@ -116,44 +117,35 @@ namespace Aplikacja
                         }
                         break;
                     case 23:
-                        if (w.WynikTestu == 2)
-                        {
+                        if (w.WynikTestu == 2) {
                             krotka.Alfa3 += 1.0d;
                         }
-                        if (w.WynikTestu == 4)
-                        {
+                        if (w.WynikTestu == 4) {
                             krotka.Alfa4 += 1.0d;
                         }
-                        if (w.WynikTestu == 42)
-                        {
+                        if (w.WynikTestu == 42) {
                             krotka.Alfa5 += 1.0d;
                         }
                         break;
                     case 24:
-                        if (w.WynikTestu == 5)
-                        {
+                        if (w.WynikTestu == 5) {
                             krotka.Alfa3 += 1.0d;
                         }
-                        if (w.WynikTestu == 3)
-                        {
+                        if (w.WynikTestu == 3) {
                             krotka.Alfa4 += 1.0d;
                         }
-                        if (w.WynikTestu == 35)
-                        {
+                        if (w.WynikTestu == 35) {
                             krotka.Alfa5 += 1.0d;
                         }
                         break;
                     case 25:
-                        if (w.WynikTestu == 6)
-                        {
+                        if (w.WynikTestu == 6) {
                             krotka.Alfa3 += 1.0d;
                         }
-                        if (w.WynikTestu == 9)
-                        {
+                        if (w.WynikTestu == 9) {
                             krotka.Alfa4 += 1.0d;
                         }
-                        if (w.WynikTestu == 96)
-                        {
+                        if (w.WynikTestu == 96) {
                             krotka.Alfa5 += 1.0d;
                         }
                         break;
@@ -180,8 +172,12 @@ namespace Aplikacja
             krotka.Alfa4 = krotka.Alfa4 / 4f;
             krotka.Alfa5 = krotka.Alfa5 / 26f;
 
-            // Wyznaczamy Fu 
+            return krotka;
+        }
 
+        private void analizuj(Boolean zapisDoPliku = false) {
+
+            Krotka krotka = ustawKrotke();
             Double Fu = FuzzyLogic.AND(zrobFu(krotka.Alfa1), FuzzyLogic.AND(zrobFu(krotka.Alfa2), FuzzyLogic.AND(zrobFu(krotka.Alfa3), FuzzyLogic.AND(zrobFu(krotka.Alfa4), FuzzyLogic.AND(zrobFu(krotka.Alfa5), FuzzyLogic.AND(zrobFu(krotka.Alfa12), FuzzyLogic.AND(zrobFu(krotka.Alfa13), FuzzyLogic.AND(zrobFu(krotka.Alfa14), zrobFu(krotka.Alfa15)))))))));
             
             generujCSV(null, true);
@@ -217,8 +213,8 @@ namespace Aplikacja
 
                                         // F5 = a5 => -a6 ^ -a7 ^ -a8 ^ -a9 ^ -a10 ^ -a11
                                         // Im więcej odpowiedzi było dobrych to tym bardziej pacjent jest zdrowy
-                                        krotka.F5 = FuzzyLogic.IMPLIES(krotka.Alfa5, FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa7), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa8), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa9), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa10), FuzzyLogic.NOT(krotka.Alfa11)))))));
-
+                                        // krotka.F5 = FuzzyLogic.XNR(krotka.Alfa5, FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa7), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa8), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa9), FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa10), FuzzyLogic.NOT(krotka.Alfa11)))))));
+                                        krotka.F5 = 1;
                                         krotka.F6 = FuzzyLogic.IMPLIES(FuzzyLogic.AND(FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa13), FuzzyLogic.NOT(krotka.Alfa14)), FuzzyLogic.NOT(krotka.Alfa15)), krotka.Alfa12);
                                         //krotka.F6 = 1;
                                         krotka.F7 = FuzzyLogic.IMPLIES(krotka.Alfa12, FuzzyLogic.AND(FuzzyLogic.AND(FuzzyLogic.NOT(krotka.Alfa6), FuzzyLogic.NOT(krotka.Alfa10)), FuzzyLogic.NOT(krotka.Alfa8)));
@@ -240,7 +236,7 @@ namespace Aplikacja
                                         krotka.F15 = FuzzyLogic.OR(krotka.Alfa6, FuzzyLogic.OR(krotka.Alfa7, FuzzyLogic.OR(krotka.Alfa8, FuzzyLogic.OR(krotka.Alfa9, FuzzyLogic.OR(krotka.Alfa10, FuzzyLogic.OR(krotka.Alfa11, krotka.Alfa16))))));
                                         
                                         // F = F1 ^ F2 ^ F3 ^ F4 ^ ...;
-                                        krotka.F = FuzzyLogic.AND(krotka.F1, FuzzyLogic.AND(krotka.F2, FuzzyLogic.AND(krotka.F3, FuzzyLogic.AND(krotka.F4, FuzzyLogic.AND(krotka.F5, FuzzyLogic.AND(krotka.F6, FuzzyLogic.AND(krotka.F7, FuzzyLogic.AND(krotka.F8, FuzzyLogic.AND(krotka.F9, FuzzyLogic.AND(krotka.F10, FuzzyLogic.AND(krotka.F11, FuzzyLogic.AND(krotka.F12, FuzzyLogic.AND(krotka.F13, FuzzyLogic.AND(krotka.F14, krotka.F12))))))))))))));
+                                        krotka.F = FuzzyLogic.AND(krotka.F1, FuzzyLogic.AND(krotka.F2, FuzzyLogic.AND(krotka.F3, FuzzyLogic.AND(krotka.F4, FuzzyLogic.AND(krotka.F5, FuzzyLogic.AND(krotka.F6, FuzzyLogic.AND(krotka.F7, FuzzyLogic.AND(krotka.F8, FuzzyLogic.AND(krotka.F9, FuzzyLogic.AND(krotka.F10, FuzzyLogic.AND(krotka.F11, FuzzyLogic.AND(krotka.F12, FuzzyLogic.AND(krotka.F13, FuzzyLogic.AND(krotka.F14, krotka.F15))))))))))))));
                                         // Fu 
                                         krotka.Fu = Fu;
                                         // F ^ Fu
@@ -260,18 +256,26 @@ namespace Aplikacja
                 }
             }
             t.Commit();
-            conn.Close();
             myDataBase.close();
 
+           
             pokazWyniki();
+
         }
 
         private void pokazWyniki() {
+            StringBuilder s = new StringBuilder();
+            s.Append("==============================================\r\n");
+            s.Append("Prawdopodobieństwo zaburzeń widzenia barwnego:\r\n");
+            s.Append("==============================================\r\n\r\n");
+
+            podsumowanie = s.ToString();
+
             MyDataBase myDataBase = new MyDataBase();
             SQLiteConnection conn = myDataBase.open();
 
             String sql = "SELECT * FROM " + Diagnoza.DIAGNOZA_TABLE_NAME + " ORDER BY "
-                + Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO + " DESC";
+                + Diagnoza.DIAGNOZA_COLUMN_PRAWDOPODOBIENSTWO + " DESC LIMIT 100";
 
             SQLiteDataReader reader = myDataBase.query(sql);
             while (reader.Read()) {
@@ -340,100 +344,83 @@ namespace Aplikacja
         }
 
         private void generujCSV(Krotka k, Boolean isFirst) {
-            String title = "a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13,F14,F15,F,Fu,F^Fu";
-
-            try {
-                StreamWriter file = new StreamWriter("rezultat.csv", true);
-                file.AutoFlush = true;
-                if (isFirst) {
-                    file.Close();
-                    file = new StreamWriter("rezultat.csv", false);
-                    file.WriteLine(title);
-
-                    StringBuilder s = new StringBuilder();
-                    s.Append("==============================================\r\n");
-                    s.Append("Prawdopodobieństwo zaburzeń widzenia barwnego:\r\n");
-                    s.Append("==============================================\r\n\r\n");
-                }
-                else {
-                    StringBuilder str = new StringBuilder();
-                    str.Append(k.Alfa1.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa2.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa3.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa4.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa5.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa6.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa7.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa8.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa9.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa10.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa11.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa12.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa13.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa14.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa15.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Alfa16.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F1.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F2.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F3.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F4.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F5.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F6.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F7.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F8.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F9.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F10.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F11.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F12.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F13.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F14.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F15.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.F.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Fu.ToString("0.00").Replace(",", "."));
-                    str.Append(',');
-                    str.Append(k.Ffu.ToString("0.00").Replace(",", "."));
-                    file.WriteLine(str.ToString());
-        }
-
-
-                file.Close();
+            
+            
+            if (isFirst) {
+                String title = "a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13,F14,F15,F,Fu,F^Fu";
+                csv = title;
             }
-            catch {
-                MessageBox.Show("Błąd zapisu do pliku. Sprobuj ponownie!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else {
+                StringBuilder str = new StringBuilder();
+                str.Append(k.Alfa1.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa2.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa3.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa4.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa5.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa6.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa7.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa8.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa9.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa10.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa11.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa12.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa13.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa14.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa15.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Alfa16.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F1.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F2.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F3.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F4.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F5.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F6.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F7.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F8.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F9.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F10.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F11.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F12.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F13.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F14.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F15.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.F.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Fu.ToString("0.00").Replace(",", "."));
+                str.Append(',');
+                str.Append(k.Ffu.ToString("0.00").Replace(",", "."));
+                csv += str.ToString() + "\r\n";
             }
-
         }
 
         private double zrobFu(double wartosc) {
@@ -464,6 +451,14 @@ namespace Aplikacja
 
         private void button1_Click(object sender, EventArgs e) {
             analizuj(true);
+
+            try {
+                File.WriteAllText("rezultat.csv",csv);
+            }
+            catch {
+                MessageBox.Show("Błąd zapisu do pliku. Sprobuj ponownie!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             MessageBox.Show("Pomyślnie wygenerowano plik rezultat.csv", "Zakończono!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
@@ -472,6 +467,10 @@ namespace Aplikacja
         private void button2_Click(object sender, EventArgs e) {
             Wykres wykres = new Wykres();
             wykres.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e) {
+            pokazWyniki();
         }
     }
 }
