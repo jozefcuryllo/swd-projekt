@@ -453,14 +453,14 @@ namespace Aplikacja
         private void makePodsumowanie(Diagnoza diagnoza) {
             StringBuilder s = new StringBuilder();
             s.Append("==============================================\r\n");
-            s.Append("Prawdopodobieństwo poprawnej diagnozy: " + diagnoza.Prawdopodobienstwo.ToString("P1").Replace(",", ".") + "\r\n");
-            s.Append("Brak zaburzeń: " + diagnoza.Zdrowy.ToString("P1").Replace(",", ".") + "\r\n");
-            s.Append("Monochromatyzm: " + diagnoza.Monochromatyzm.ToString("P1").Replace(",", ".") + "\r\n");
-            s.Append("Zaburzenia czerwony/zielony: " + diagnoza.Czerwonyzielony.ToString("P1").Replace(",", ".") + "\r\n");
-            s.Append("Protanopia: " + diagnoza.Protanopia.ToString("P1").Replace(",", ".") + "\r\n");
-            s.Append("Protanomalia: " + diagnoza.Protanomalia.ToString("P1").Replace(",", ".") + "\r\n");
-            s.Append("Deuteranopia: " + diagnoza.Deuteranopia.ToString("P1").Replace(",", ".") + "\r\n");
-            s.Append("Deuteranomalia: " + diagnoza.Deuteranomalia.ToString("P1").Replace(",", ".") + "\r\n");
+            s.Append("Wskaźnik F->Fu dla diagnozy: " + diagnoza.Prawdopodobienstwo.ToString("F2").Replace(",", ".") + "\r\n");
+            s.Append("Brak zaburzeń: " + diagnoza.Zdrowy.ToString("F2").Replace(",", ".") + "\r\n");
+            s.Append("Monochromatyzm: " + diagnoza.Monochromatyzm.ToString("F2").Replace(",", ".") + "\r\n");
+            s.Append("Zaburzenia czerwony/zielony: " + diagnoza.Czerwonyzielony.ToString("F2").Replace(",", ".") + "\r\n");
+            s.Append("Protanopia: " + diagnoza.Protanopia.ToString("F2").Replace(",", ".") + "\r\n");
+            s.Append("Protanomalia: " + diagnoza.Protanomalia.ToString("F2").Replace(",", ".") + "\r\n");
+            s.Append("Deuteranopia: " + diagnoza.Deuteranopia.ToString("F2").Replace(",", ".") + "\r\n");
+            s.Append("Deuteranomalia: " + diagnoza.Deuteranomalia.ToString("F2").Replace(",", ".") + "\r\n");
             s.Append("==============================================\r\n");
             s.Append("\r\n");
 
