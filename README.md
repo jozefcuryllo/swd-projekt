@@ -4,13 +4,15 @@ Głównym celem programu jest zastosowanie metody algebraiczno-logicznej do wyzn
 # Uruchomienie projektu
 Aby uruchomić niniejszy projekt najłatwiej pobrać program do obsługi GitHuba (https://desktop.github.com/), sklonować lokalnie niniejsze repozytorium, a następnie otworzyć je w Microsoft Visual Studio 2015 lub nowszym.
 
+Ponadto przy pierwszym uruchomieniu należy skopiować folder "Images" do folderu, w którym znajduje się plik wykonywalny, tj. bin/Debug (tymczasowo).
+
 # Używane przez nas testy
-- Test Ishihary (czerwony, zielony)
-- Panel D-100 Farnswortha-Munsella (czerwony, zielony, niebieski, żółty) (???)
+- Test Ishihary
+- Panel D-15 Farnswortha-Munsella (FM)
 
 # Ciekawe odnośniki
 - Test D-15 on-line http://www.color-blindness.com/color-arrangement-test/
-- Generator tablic Ishihary https://franciscouzo.github.io/ishihara/
+- Generator tablic Ishihary https://franciscouzo.github.io/ishihara/ 
 
 # Literatura
 [1] Logika rozmyta 
