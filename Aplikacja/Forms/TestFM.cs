@@ -23,20 +23,20 @@ namespace Aplikacja.Forms {
             InitializeComponent();
             koloryFM = new List<Color>();
            // koloryFM.Add(Color.FromArgb(0x37, 0x81, 0xc1)); //1
-            koloryFM.Add(Color.FromArgb(0x37, 0x85, 0x9c)); //2
-            koloryFM.Add(Color.FromArgb(0x8f, 0x6f, 0xa4)); //3
-            koloryFM.Add(Color.FromArgb(0x3b, 0x86, 0x90)); //4  #3B8690 
-            koloryFM.Add(Color.FromArgb(0x35, 0x83, 0xb4)); //5  #3583B4
-            koloryFM.Add(Color.FromArgb(0x92, 0x70, 0x99)); //6  #927099
-            koloryFM.Add(Color.FromArgb(0x6c, 0x81, 0x64)); //7  #6C8164
-            koloryFM.Add(Color.FromArgb(0x3b, 0x84, 0xa7)); //8  #3B84A7
-            koloryFM.Add(Color.FromArgb(0x9e, 0x6e, 0x6f)); //9  #9E6E6F
-            koloryFM.Add(Color.FromArgb(0x9f, 0x6d, 0x7c)); //10 #9F6D7C
-            koloryFM.Add(Color.FromArgb(0x90, 0x76, 0x60)); //11 #907660
-            koloryFM.Add(Color.FromArgb(0x83, 0x7b, 0x5d)); //12 #837B5D
-            koloryFM.Add(Color.FromArgb(0x69, 0x84, 0x73)); //13 #698473
-            koloryFM.Add(Color.FromArgb(0x9c, 0x6d, 0x89)); //14 #9C6D89
-            koloryFM.Add(Color.FromArgb(0x3f, 0x87, 0x82)); //15
+            koloryFM.Add(Color.FromArgb(0x35, 0x83, 0xb4)); //2
+            koloryFM.Add(Color.FromArgb(0x3b, 0x84, 0xa7)); //3
+            koloryFM.Add(Color.FromArgb(0x39, 0x85, 0x9c)); //4  #3B8690 
+            koloryFM.Add(Color.FromArgb(0x3b, 0x86, 0x90)); //5  #3583B4
+            koloryFM.Add(Color.FromArgb(0x3f, 0x87, 0x82)); //6  #927099
+            koloryFM.Add(Color.FromArgb(0x58, 0x84, 0x73)); //7  #6C8164
+            koloryFM.Add(Color.FromArgb(0x6c, 0x81, 0x64)); //8  #3B84A7
+            koloryFM.Add(Color.FromArgb(0x83, 0x7b, 0x5d)); //9  #9E6E6F
+            koloryFM.Add(Color.FromArgb(0x90, 0x76, 0x60)); //10 #9F6D7C
+            koloryFM.Add(Color.FromArgb(0x9e, 0x6e, 0x6f)); //11 #907660
+            koloryFM.Add(Color.FromArgb(0x9f, 0x6d, 0x7c)); //12 #837B5D
+            koloryFM.Add(Color.FromArgb(0x9c, 0x6d, 0x89)); //13 #698473
+            koloryFM.Add(Color.FromArgb(0x92, 0x70, 0x99)); //14 #9C6D89
+            koloryFM.Add(Color.FromArgb(0x8f, 0x6f, 0xa4)); //15
             koloryFM.Add(Color.FromArgb(0x80, 0x73, 0xb2)); //16
 
             ustawKolory();
@@ -69,69 +69,68 @@ namespace Aplikacja.Forms {
         private void obliczFM() {
             // lista poprawnie ułożonych kolorów
             wzorcowe = new List<int>();
-            foreach(Color c in koloryFM) {
+            wzorcowe.Add(Color.FromArgb(0x37, 0x81, 0xc1).ToArgb());
+            foreach (Color c in koloryFM) {
                 wzorcowe.Add(c.ToArgb());
             }
-            wzorcowe.Add(Color.FromArgb(0x37, 0x81, 0xc1).ToArgb()); // 1)
 
             // lista wskazująca protanopię
             protanopia = new List<int>();
-            protanopia.Add(Color.FromArgb(0x37, 0x81, 0xc1).ToArgb());// 1
-            protanopia.Add(Color.FromArgb(0x80, 0x73, 0xb2).ToArgb()); //16
-            protanopia.Add(Color.FromArgb(0x37, 0x85, 0x9c).ToArgb()); //2
-            protanopia.Add(Color.FromArgb(0x3f, 0x87, 0x82).ToArgb()); //15
-            protanopia.Add(Color.FromArgb(0x8f, 0x6f, 0xa4).ToArgb()); //3
-            protanopia.Add(Color.FromArgb(0x9c, 0x6d, 0x89).ToArgb()); //14
-            protanopia.Add(Color.FromArgb(0x3b, 0x86, 0x90).ToArgb()); //4
-            protanopia.Add(Color.FromArgb(0x69, 0x84, 0x73).ToArgb()); //13 +
-            protanopia.Add(Color.FromArgb(0x35, 0x83, 0xb4).ToArgb()); //5
-            protanopia.Add(Color.FromArgb(0x83, 0x7b, 0x5d).ToArgb()); //12
-            protanopia.Add(Color.FromArgb(0x92, 0x70, 0x99).ToArgb()); //6
-            protanopia.Add(Color.FromArgb(0x90, 0x76, 0x60).ToArgb()); //11
-            protanopia.Add(Color.FromArgb(0x6c, 0x81, 0x64).ToArgb()); //7
-            protanopia.Add(Color.FromArgb(0x9f, 0x6d, 0x7c).ToArgb()); //10
-            protanopia.Add(Color.FromArgb(0x3b, 0x84, 0xa7).ToArgb()); //8
-            protanopia.Add(Color.FromArgb(0x9e, 0x6e, 0x6f).ToArgb());// 9
+            protanopia.Add(wzorcowe.ElementAt(0));
+            protanopia.Add(wzorcowe.ElementAt(15));
+            protanopia.Add(wzorcowe.ElementAt(1));
+            protanopia.Add(wzorcowe.ElementAt(14));
+            protanopia.Add(wzorcowe.ElementAt(2));
+            protanopia.Add(wzorcowe.ElementAt(13));
+            protanopia.Add(wzorcowe.ElementAt(3));
+            protanopia.Add(wzorcowe.ElementAt(12));
+            protanopia.Add(wzorcowe.ElementAt(4));
+            protanopia.Add(wzorcowe.ElementAt(11));
+            protanopia.Add(wzorcowe.ElementAt(5));
+            protanopia.Add(wzorcowe.ElementAt(10));
+            protanopia.Add(wzorcowe.ElementAt(6));
+            protanopia.Add(wzorcowe.ElementAt(9));
+            protanopia.Add(wzorcowe.ElementAt(7));
+            protanopia.Add(wzorcowe.ElementAt(8));
+
 
             // lista wskazująca na deuteranopie
             deuteranopia = new List<int>();
-            deuteranopia.Add(Color.FromArgb(0x37, 0x81, 0xc1).ToArgb()); //1
-            deuteranopia.Add(Color.FromArgb(0x37, 0x85, 0x9c).ToArgb());// 2
-            deuteranopia.Add(Color.FromArgb(0x80, 0x73, 0xb2).ToArgb()); //16
-            deuteranopia.Add(Color.FromArgb(0x8f, 0x6f, 0xa4).ToArgb()); //3
-            deuteranopia.Add(Color.FromArgb(0x3f, 0x87, 0x82).ToArgb());// 15
-            deuteranopia.Add(Color.FromArgb(0x3b, 0x86, 0x90).ToArgb());// 4
-            deuteranopia.Add(Color.FromArgb(0x9c, 0x6d, 0x89).ToArgb()); //14
-            deuteranopia.Add(Color.FromArgb(0x35, 0x83, 0xb4).ToArgb()); //5
-            deuteranopia.Add(Color.FromArgb(0x92, 0x70, 0x99).ToArgb()); //6
-            deuteranopia.Add(Color.FromArgb(0x69, 0x84, 0x73).ToArgb()); //13 +
-            deuteranopia.Add(Color.FromArgb(0x83, 0x7b, 0x5d).ToArgb()); //12
-            deuteranopia.Add(Color.FromArgb(0x6c, 0x81, 0x64).ToArgb());// 7
-            deuteranopia.Add(Color.FromArgb(0x90, 0x76, 0x60).ToArgb());// 11
-            deuteranopia.Add(Color.FromArgb(0x3b, 0x84, 0xa7).ToArgb());// 8 +
-            deuteranopia.Add(Color.FromArgb(0x9f, 0x6d, 0x7c).ToArgb());// 10
-            deuteranopia.Add(Color.FromArgb(0x9e, 0x6e, 0x6f).ToArgb()); //9
+            deuteranopia.Add(wzorcowe.ElementAt(0));
+            deuteranopia.Add(wzorcowe.ElementAt(1));
+            deuteranopia.Add(wzorcowe.ElementAt(15));
+            deuteranopia.Add(wzorcowe.ElementAt(2));
+            deuteranopia.Add(wzorcowe.ElementAt(14));
+            deuteranopia.Add(wzorcowe.ElementAt(3));
+            deuteranopia.Add(wzorcowe.ElementAt(13));
+            deuteranopia.Add(wzorcowe.ElementAt(4));
+            deuteranopia.Add(wzorcowe.ElementAt(5));
+            deuteranopia.Add(wzorcowe.ElementAt(12));
+            deuteranopia.Add(wzorcowe.ElementAt(11));
+            deuteranopia.Add(wzorcowe.ElementAt(6));
+            deuteranopia.Add(wzorcowe.ElementAt(10));
+            deuteranopia.Add(wzorcowe.ElementAt(7));
+            deuteranopia.Add(wzorcowe.ElementAt(9));
+            deuteranopia.Add(wzorcowe.ElementAt(8));
 
             // lista wskazująca na achromatyzm
             achromatyzm = new List<int>();
-            achromatyzm.Add(Color.FromArgb(0x37, 0x81, 0xc1).ToArgb());// 1
-            achromatyzm.Add(Color.FromArgb(0x37, 0x85, 0x9c).ToArgb());// 2
-            achromatyzm.Add(Color.FromArgb(0x8f, 0x6f, 0xa4).ToArgb()); //3
-            achromatyzm.Add(Color.FromArgb(0x3b, 0x86, 0x90).ToArgb());// 4
-            achromatyzm.Add(Color.FromArgb(0x35, 0x83, 0xb4).ToArgb());// 5
-            achromatyzm.Add(Color.FromArgb(0x92, 0x70, 0x99).ToArgb());// 6
-            achromatyzm.Add(Color.FromArgb(0x80, 0x73, 0xb2).ToArgb());// 16
-            achromatyzm.Add(Color.FromArgb(0x6c, 0x81, 0x64).ToArgb());// 7
-            achromatyzm.Add(Color.FromArgb(0x3f, 0x87, 0x82).ToArgb()); //15
-            achromatyzm.Add(Color.FromArgb(0x9c, 0x6d, 0x89).ToArgb()); //14
-            achromatyzm.Add(Color.FromArgb(0x3b, 0x84, 0xa7).ToArgb()); //8
-            achromatyzm.Add(Color.FromArgb(0x69, 0x84, 0x73).ToArgb()); //13
-            achromatyzm.Add(Color.FromArgb(0x83, 0x7b, 0x5d).ToArgb()); //12
-            achromatyzm.Add(Color.FromArgb(0x9e, 0x6e, 0x6f).ToArgb());// 9
-            achromatyzm.Add(Color.FromArgb(0x90, 0x76, 0x60).ToArgb()); //11
-            achromatyzm.Add(Color.FromArgb(0x9f, 0x6d, 0x7c).ToArgb()); //10
-
-
+            achromatyzm.Add(wzorcowe.ElementAt(0));
+            achromatyzm.Add(wzorcowe.ElementAt(1));
+            achromatyzm.Add(wzorcowe.ElementAt(2));
+            achromatyzm.Add(wzorcowe.ElementAt(3));
+            achromatyzm.Add(wzorcowe.ElementAt(4));
+            achromatyzm.Add(wzorcowe.ElementAt(5));
+            achromatyzm.Add(wzorcowe.ElementAt(15));
+            achromatyzm.Add(wzorcowe.ElementAt(6));
+            achromatyzm.Add(wzorcowe.ElementAt(14));
+            achromatyzm.Add(wzorcowe.ElementAt(13));
+            achromatyzm.Add(wzorcowe.ElementAt(7));
+            achromatyzm.Add(wzorcowe.ElementAt(12));
+            achromatyzm.Add(wzorcowe.ElementAt(11));
+            achromatyzm.Add(wzorcowe.ElementAt(8));
+            achromatyzm.Add(wzorcowe.ElementAt(10));
+            achromatyzm.Add(wzorcowe.ElementAt(9));
 
             // lista kolorów ułożonych przez pacjenta
             ulozone = new List<int>();
@@ -152,7 +151,6 @@ namespace Aplikacja.Forms {
             ulozone.Add(fMblok14.UlozonyKolor.ToArgb());
             ulozone.Add(fMblok15.UlozonyKolor.ToArgb());
             ulozone.Add(fMblok16.UlozonyKolor.ToArgb());
-
 
             // do zapisania do bazy danych
             double alfa12 = Similarity.levenshtein(ulozone, wzorcowe);
